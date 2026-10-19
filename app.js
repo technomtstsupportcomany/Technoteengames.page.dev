@@ -84,6 +84,8 @@
     updateStats();
   }
   $('accept-progress').addEventListener('click', () => chooseProgressStorage(true));
+  $('settings-privacy').addEventListener('click', () => { closeSettings(false); choiceOverlay.hidden = false; document.body.classList.add('privacy-locked'); $('accept-progress').focus(); });
+  $('settings-reset').addEventListener('click', () => { resetProgress(); closeSettings(); });
   $('decline-progress').addEventListener('click', () => chooseProgressStorage(false));
   $('privacy-settings').addEventListener('click', () => { choiceOverlay.hidden = false; document.body.classList.add('privacy-locked'); $('accept-progress').focus(); });
   function save() {
@@ -96,6 +98,7 @@
     $('xp-count').textContent = state.xp;
     $('mission-count').textContent = state.completed;
     $('save-status').textContent = saveConsent ? 'PROGRESS SAVES ON THIS DEVICE' : 'PROGRESS IS TEMPORARY THIS SESSION';
+    $('settings-save-status').textContent = saveConsent ? 'Your progress is saved in this browser.' : 'Your progress is temporary and ends with this session.';
     const levels = [
       { name: 'Curious', short: 'CURIOUS', min: 0, next: 50 },
       { name: 'Spark Starter', short: 'SPARK STARTER', min: 50, next: 120 },
@@ -182,6 +185,150 @@
     $('pitch-result').textContent = `We help ${audience} with ${offer}, so they can ${benefit}.`;
     $('pitch-result').classList.add('pitch-generated');
   });
+  // Appearance settings: theme choice and festive effects, kept in this browser.
+  const APPEARANCE_KEY = 'sidequest-appearance-v1';
+  const THEME_KEY = 'sidequest-theme-v1';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let appearance = { snow: !reduceMotion.matches, lights: true };
+  let themePref = 'auto';
+  try {
+    themePref = localStorage.getItem(THEME_KEY) || 'auto';
+    appearance = { ...appearance, ...JSON.parse(localStorage.getItem(APPEARANCE_KEY) || '{}') };
+  } catch { /* Use defaults when storage is unavailable. */ }
+  const isSeason = (date = new Date()) => date.getMonth() === 11 || (date.getMonth() === 0 && date.getDate() <= 6);
+  const activeTheme = () => (themePref === 'festive' || (themePref === 'auto' && isSeason()) ? 'festive' : 'classic');
+  function storeAppearance() {
+    try { localStorage.setItem(THEME_KEY, themePref); localStorage.setItem(APPEARANCE_KEY, JSON.stringify(appearance)); } catch { /* The choice applies for this page view. */ }
+  }
+  function applyAppearance() {
+    const theme = activeTheme();
+    const root = document.documentElement;
+    root.dataset.theme = theme;
+    root.classList.toggle('lights-off', !appearance.lights);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'festive' ? '#07120f' : '#080b10');
+    document.querySelectorAll('input[name="theme"]').forEach((input) => { input.checked = input.value === themePref; });
+    $('snow-toggle').checked = appearance.snow;
+    $('lights-toggle').checked = appearance.lights;
+    $('effects-hint').hidden = theme === 'festive';
+    updateCountdown();
+    if (theme === 'festive' && appearance.snow) snow.start(); else snow.stop();
+  }
+  function updateCountdown() {
+    const now = new Date();
+    const day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const daysUntil = (month, date) => {
+      let target = new Date(day.getFullYear(), month, date);
+      if (target < day) target = new Date(day.getFullYear() + 1, month, date);
+      return Math.round((target - day) / 86400000);
+    };
+    const toXmas = daysUntil(11, 25);
+    const toNewYear = daysUntil(0, 1);
+    const nextYear = now.getMonth() === 0 ? now.getFullYear() : now.getFullYear() + 1;
+    let text;
+    if (toXmas === 0) text = 'MERRY CHRISTMAS, FOUNDERS';
+    else if (now.getMonth() === 0 && now.getDate() <= 6) text = `HAPPY NEW YEAR ${now.getFullYear()} · NEW YEAR, NEW QUESTS`;
+    else if (toXmas < toNewYear) text = `${toXmas} ${toXmas === 1 ? 'DAY' : 'DAYS'} TO CHRISTMAS · ${toNewYear} TO ${nextYear}`;
+    else text = `${toNewYear} ${toNewYear === 1 ? 'DAY' : 'DAYS'} TO ${nextYear} · SEASON’S GREETINGS`;
+    $('festive-countdown').textContent = text;
+  }
+  const snow = (() => {
+    const canvas = $('snow-layer');
+    const ctx = canvas.getContext('2d');
+    let flakes = [];
+    let frame = null;
+    function resize() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = innerWidth * ratio; canvas.height = innerHeight * ratio;
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      const count = Math.round(Math.min(110, innerWidth / 12));
+      flakes = Array.from({ length: count }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: 0.8 + Math.random() * 2.2, speed: 0.3 + Math.random() * 0.9, drift: Math.random() * Math.PI * 2 }));
+    }
+    function tick() {
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ctx.fillStyle = 'rgba(255, 252, 240, 0.75)';
+      ctx.beginPath();
+      for (const flake of flakes) {
+        flake.y += flake.speed; flake.drift += 0.01; flake.x += Math.sin(flake.drift) * 0.35;
+        if (flake.y > innerHeight + 4) { flake.y = -4; flake.x = Math.random() * innerWidth; }
+        ctx.moveTo(flake.x + flake.r, flake.y);
+        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+      }
+      ctx.fill();
+      frame = requestAnimationFrame(tick);
+    }
+    return {
+      start() { if (frame !== null) return; resize(); canvas.classList.add('is-active'); window.addEventListener('resize', resize); frame = requestAnimationFrame(tick); },
+      stop() { if (frame === null) return; cancelAnimationFrame(frame); frame = null; window.removeEventListener('resize', resize); canvas.classList.remove('is-active'); ctx.clearRect(0, 0, innerWidth, innerHeight); }
+    };
+  })();
+  document.querySelectorAll('input[name="theme"]').forEach((input) => input.addEventListener('change', () => { themePref = input.value; storeAppearance(); applyAppearance(); }));
+  $('snow-toggle').addEventListener('change', (event) => { appearance.snow = event.target.checked; storeAppearance(); applyAppearance(); });
+  $('lights-toggle').addEventListener('change', (event) => { appearance.lights = event.target.checked; storeAppearance(); applyAppearance(); });
+
+  const settingsPanel = $('settings-panel');
+  const settingsBackdrop = $('settings-backdrop');
+  let settingsReturnFocus = null;
+  function openSettings() {
+    settingsReturnFocus = document.activeElement;
+    settingsPanel.hidden = false; settingsBackdrop.hidden = false;
+    document.body.classList.add('settings-open');
+    selectTab('tab-appearance');
+    $('settings-close').focus();
+  }
+  function closeSettings(restoreFocus = true) {
+    if (settingsPanel.hidden) return;
+    settingsPanel.hidden = true; settingsBackdrop.hidden = true;
+    document.body.classList.remove('settings-open');
+    if (restoreFocus && settingsReturnFocus) settingsReturnFocus.focus();
+  }
+  const tabs = [...settingsPanel.querySelectorAll('[role="tab"]')];
+  function selectTab(id) {
+    tabs.forEach((tab) => {
+      const selected = tab.id === id;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      $(tab.getAttribute('aria-controls')).hidden = !selected;
+    });
+  }
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => selectTab(tab.id));
+    tab.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+      selectTab(next.id); next.focus();
+    });
+  });
+  $('settings-open').addEventListener('click', openSettings);
+  $('footer-settings').addEventListener('click', openSettings);
+  $('settings-close').addEventListener('click', () => closeSettings());
+  settingsBackdrop.addEventListener('click', () => closeSettings());
+  document.addEventListener('keydown', (event) => {
+    if (settingsPanel.hidden) return;
+    if (event.key === 'Escape') { closeSettings(); return; }
+    if (event.key !== 'Tab') return;
+    const focusable = [...settingsPanel.querySelectorAll('button, input, [href]')].filter((el) => !el.disabled && el.offsetParent !== null && el.tabIndex !== -1);
+    const first = focusable[0]; const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
+
+  // Upcoming update teaser: play the trailer sequence once it scrolls into view.
+  const teaserFrame = document.querySelector('.teaser-frame');
+  function playTeaser() {
+    teaserFrame.classList.remove('is-playing', 'is-played');
+    void teaserFrame.offsetWidth;
+    teaserFrame.classList.add('is-playing');
+  }
+  if ('IntersectionObserver' in window) {
+    const teaserObserver = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      playTeaser(); teaserObserver.disconnect();
+    }, { threshold: 0.45 });
+    teaserObserver.observe(teaserFrame);
+  } else teaserFrame.classList.add('is-played');
+  $('teaser-replay').addEventListener('click', playTeaser);
+
+  applyAppearance();
   updateCalculator();
   updateStats();
   $('reset-progress').addEventListener('click', resetProgress);

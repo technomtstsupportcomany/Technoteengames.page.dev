@@ -1,0 +1,60 @@
+/* Upcoming update teaser: a movie-trailer style title card. Colors follow the active theme via --green. */
+.teaser-section{padding:72px 0;background:#040608}
+.teaser-frame{position:relative;width:min(1380px,calc(100% - 96px));margin:0 auto;aspect-ratio:2.39/1;min-height:420px;overflow:hidden;isolation:isolate;background:#020304;border:1px solid #1b232c;box-shadow:0 40px 120px #000c;color:#f3f5f2}
+.teaser-scene,.teaser-sky,.teaser-glow,.teaser-grain{position:absolute;inset:0}
+.teaser-sky{background:radial-gradient(ellipse at 50% 120%,#1a2a2f 0%,#070b10 55%,#020304 100%)}
+.teaser-glow{background:radial-gradient(ellipse 45% 38% at 50% 78%,color-mix(in srgb,var(--green) 38%,transparent),transparent 70%);animation:teaser-glow 6s ease-in-out infinite}
+.teaser-skyline{position:absolute;left:0;right:0;bottom:0;height:34%;display:flex;align-items:flex-end;gap:1.2%;padding:0 3%}
+.teaser-skyline i{flex:1;background:linear-gradient(#0d141a,#05080b);border-top:1px solid #ffffff10;height:var(--h,50%)}
+.teaser-skyline i:nth-child(1){--h:38%}.teaser-skyline i:nth-child(2){--h:64%}.teaser-skyline i:nth-child(3){--h:45%}.teaser-skyline i:nth-child(4){--h:80%}.teaser-skyline i:nth-child(5){--h:52%}.teaser-skyline i:nth-child(6){--h:28%;flex:2.4;background:transparent;border:0}.teaser-skyline i:nth-child(7){--h:58%}.teaser-skyline i:nth-child(8){--h:88%}.teaser-skyline i:nth-child(9){--h:42%}.teaser-skyline i:nth-child(10){--h:70%}.teaser-skyline i:nth-child(11){--h:35%}
+.teaser-figure{position:absolute;left:50%;bottom:8%;width:2.2%;min-width:14px;aspect-ratio:1/3.2;transform:translateX(-50%);background:#020304;border-radius:50% 50% 12% 12%/18% 18% 6% 6%;box-shadow:0 0 0 1px color-mix(in srgb,var(--green) 40%,transparent)}
+.teaser-figure:before{content:'';position:absolute;left:50%;top:-34%;width:72%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:#020304;box-shadow:0 0 0 1px color-mix(in srgb,var(--green) 40%,transparent)}
+.teaser-beam{position:absolute;left:50%;bottom:20%;width:30%;height:90%;transform:translateX(-50%);background:linear-gradient(0deg,color-mix(in srgb,var(--green) 22%,transparent),transparent 80%);clip-path:polygon(47% 100%,53% 100%,100% 0,0 0);opacity:.55;animation:teaser-beam 4s ease-in-out infinite}
+.teaser-grain{opacity:.09;background-image:repeating-radial-gradient(circle at 17% 32%,#fff 0 1px,transparent 1px 3px),repeating-radial-gradient(circle at 71% 64%,#fff 0 1px,transparent 1px 4px);mix-blend-mode:overlay;animation:teaser-grain .5s steps(3) infinite}
+.teaser-bar{position:absolute;z-index:3;left:0;right:0;height:11%;min-height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 3%;background:#000;font:8px var(--mono);letter-spacing:.2em;color:#7d8a90}
+.teaser-bar-top{top:0}.teaser-bar-bottom{bottom:0}
+.teaser-bar-top span:last-child{color:#ff5a4f}
+.teaser-copy{position:absolute;z-index:2;inset:11% 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 6%}
+.teaser-line{position:absolute;top:50%;left:0;right:0;margin:0;transform:translateY(-50%);font:italic 400 clamp(16px,2.3vw,30px) var(--display);letter-spacing:-.02em;color:#dfe6e3;opacity:0}
+.teaser-kicker,.teaser-title,.teaser-tagline,.teaser-meta,.teaser-replay{opacity:0}
+.teaser-kicker{margin:0 0 10px;font:9px var(--mono);letter-spacing:.45em;text-transform:uppercase;color:var(--green)}
+.teaser-title{margin:0;display:flex;flex-direction:column;align-items:center;font:700 clamp(46px,8.5vw,128px)/.86 var(--display);letter-spacing:-.06em;background:linear-gradient(180deg,#fff 30%,#9aa6ab);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 30px #0009)}
+.teaser-title em{font-style:normal;font-size:.36em;letter-spacing:.32em;text-transform:uppercase;margin-top:.5em;padding-left:.32em;background:linear-gradient(90deg,var(--green),#fff,var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}
+.teaser-tagline{margin:20px 0 18px;font-size:clamp(12px,1.2vw,15px);color:#b4c0c4;letter-spacing:.02em}
+.teaser-meta{display:flex;align-items:center;gap:18px;font:9px var(--mono);letter-spacing:.2em;color:#c9d2d5}
+.teaser-rating{display:inline-flex;align-items:center;gap:8px;padding:5px 9px 5px 5px;border:1px solid #56626a}
+.teaser-rating b{display:grid;place-items:center;width:20px;height:20px;background:#f3f5f2;color:#020304;font:700 12px var(--display);letter-spacing:0}
+.teaser-date{color:var(--green)}
+.teaser-replay{margin-top:22px;min-height:40px;font-size:10px;gap:10px}
+
+/* Trailer sequence: two narration cards, then the title card. */
+.teaser-frame.is-playing .teaser-line-1{animation:teaser-card 3.2s .4s ease both}
+.teaser-frame.is-playing .teaser-line-2{animation:teaser-card 3.2s 3.8s ease both}
+.teaser-frame.is-playing .teaser-kicker{animation:teaser-fade 1s 7.4s ease both}
+.teaser-frame.is-playing .teaser-title{animation:teaser-slam 1.4s 7.6s cubic-bezier(.2,.8,.2,1) both}
+.teaser-frame.is-playing .teaser-tagline{animation:teaser-fade 1s 8.9s ease both}
+.teaser-frame.is-playing .teaser-meta{animation:teaser-fade 1s 9.4s ease both}
+.teaser-frame.is-playing .teaser-replay{animation:teaser-fade 1s 10s ease both}
+.teaser-frame.is-played .teaser-kicker,.teaser-frame.is-played .teaser-title,.teaser-frame.is-played .teaser-tagline,.teaser-frame.is-played .teaser-meta,.teaser-frame.is-played .teaser-replay{opacity:1}
+@keyframes teaser-card{0%{opacity:0;filter:blur(6px);letter-spacing:.06em}18%,78%{opacity:1;filter:none;letter-spacing:-.02em}100%{opacity:0;filter:blur(4px)}}
+@keyframes teaser-fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes teaser-slam{0%{opacity:0;transform:scale(1.35);filter:blur(12px) drop-shadow(0 0 30px #0009)}60%{opacity:1}100%{opacity:1;transform:none;filter:drop-shadow(0 0 30px #0009)}}
+@keyframes teaser-glow{0%,100%{opacity:.75}50%{opacity:1}}
+@keyframes teaser-beam{0%,100%{opacity:.4}50%{opacity:.7}}
+@keyframes teaser-grain{0%{transform:translate(0,0)}33%{transform:translate(-2%,1%)}66%{transform:translate(1%,-2%)}}
+
+[data-theme="festive"] .teaser-sky{background:radial-gradient(ellipse at 50% 120%,#173022 0%,#06100c 55%,#020403 100%)}
+
+@media(max-width:900px){.teaser-frame{width:calc(100% - 48px)}}
+@media(max-width:680px){
+  .teaser-section{padding:48px 0}
+  .teaser-frame{width:calc(100% - 36px);aspect-ratio:auto;min-height:480px}
+  .teaser-bar{font-size:6px;letter-spacing:.14em}
+  .teaser-figure{min-width:12px}
+  .teaser-meta{flex-direction:column;gap:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .teaser-glow,.teaser-beam,.teaser-grain{animation:none}
+  .teaser-line{display:none}
+  .teaser-kicker,.teaser-title,.teaser-tagline,.teaser-meta,.teaser-replay{opacity:1;animation:none!important}
+}

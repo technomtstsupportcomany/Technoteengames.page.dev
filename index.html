@@ -8,6 +8,20 @@
   <meta name="description" content="Sidequest is a next-generation founder game. Build real-world business skills through six high-energy missions.">
   <title>Sidequest — Build what’s next.</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="themes.css">
+  <link rel="stylesheet" href="teaser.css">
+  <script>
+    /* Apply the saved theme before first paint to avoid a flash of the wrong theme. */
+    (() => {
+      let pref = 'auto';
+      try { pref = localStorage.getItem('sidequest-theme-v1') || 'auto'; } catch { /* Fall back to the seasonal default. */ }
+      const now = new Date();
+      const seasonal = now.getMonth() === 11 || (now.getMonth() === 0 && now.getDate() <= 6);
+      const theme = pref === 'festive' || (pref === 'auto' && seasonal) ? 'festive' : 'classic';
+      document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'festive' ? '#07120f' : '#080b10');
+    })();
+  </script>
   <script src="app.js" defer></script>
   <style>
     /* SideQuest hero credit slider: self-contained */
@@ -130,9 +144,72 @@
     </div>
   </section>
 
+  <div class="settings-backdrop" id="settings-backdrop" hidden></div>
+  <aside class="settings-panel" id="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+    <div class="settings-head">
+      <div>
+        <p class="eyebrow">SETTINGS</p>
+        <h2 id="settings-title">Make it <em>yours.</em></h2>
+      </div>
+      <button class="settings-close" id="settings-close" type="button" aria-label="Close settings">✕</button>
+    </div>
+    <div class="settings-tabs" role="tablist" aria-label="Settings sections">
+      <button class="settings-tab" id="tab-appearance" role="tab" type="button" aria-selected="true" aria-controls="panel-appearance">Appearance</button>
+      <button class="settings-tab" id="tab-progress" role="tab" type="button" aria-selected="false" aria-controls="panel-progress" tabindex="-1">Progress &amp; privacy</button>
+    </div>
+    <section class="settings-section" id="panel-appearance" role="tabpanel" aria-labelledby="tab-appearance">
+      <fieldset class="theme-options">
+        <legend>App theme</legend>
+        <label class="theme-option">
+          <input type="radio" name="theme" value="auto">
+          <span class="theme-preview preview-auto" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="theme-copy"><strong>Seasonal</strong><small>Classic most of the year, festive from Dec 1 to Jan 6.</small></span>
+        </label>
+        <label class="theme-option">
+          <input type="radio" name="theme" value="classic">
+          <span class="theme-preview preview-classic" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="theme-copy"><strong>Classic Neon</strong><small>The original midnight-and-lime Sidequest look.</small></span>
+        </label>
+        <label class="theme-option">
+          <input type="radio" name="theme" value="festive">
+          <span class="theme-preview preview-festive" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="theme-copy"><strong>Christmas &amp; New Year</strong><small>Pine night, gold sparkle, berry red, lights and snow.</small></span>
+        </label>
+      </fieldset>
+      <div class="settings-group">
+        <p class="settings-label">Festive effects</p>
+        <label class="settings-toggle">
+          <span><strong>Snowfall</strong><small>Gentle snow drifting over the page.</small></span>
+          <input type="checkbox" id="snow-toggle" role="switch">
+        </label>
+        <label class="settings-toggle">
+          <span><strong>Holiday lights</strong><small>A twinkling string of lights below the header.</small></span>
+          <input type="checkbox" id="lights-toggle" role="switch">
+        </label>
+        <p class="settings-hint" id="effects-hint">Effects show while the Christmas &amp; New Year theme is active.</p>
+      </div>
+      <p class="settings-note">Your appearance choices are saved in this browser only.</p>
+    </section>
+    <section class="settings-section" id="panel-progress" role="tabpanel" aria-labelledby="tab-progress" hidden>
+      <div class="settings-group">
+        <p class="settings-label">Progress storage</p>
+        <p class="settings-status" id="settings-save-status"></p>
+        <button class="button button-dark" id="settings-privacy" type="button">Change privacy choice <span>↗</span></button>
+      </div>
+      <div class="settings-group">
+        <p class="settings-label">Start fresh</p>
+        <p class="settings-status">Clear your XP, missions and badges.</p>
+        <button class="button button-dark" id="settings-reset" type="button">Reset progress <span>↺</span></button>
+      </div>
+    </section>
+  </aside>
+
+  <canvas class="snow-layer" id="snow-layer" aria-hidden="true"></canvas>
+
   <div class="topline">
     <span>◉ SIDEQUEST / FOUNDER MODE <b>V1.0</b></span>
-    <span>THE FUTURE BELONGS TO THE CURIOUS <span class="topline-star">✳</span></span>
+    <span class="classic-only">THE FUTURE BELONGS TO THE CURIOUS <span class="topline-star">✳</span></span>
+    <span class="festive-only"><span id="festive-countdown">SEASON’S GREETINGS</span> <span class="topline-star">❄</span></span>
   </div>
 
   <header class="site-header">
@@ -145,9 +222,14 @@
       <a href="#toolkit">Founder tools</a>
       <a href="#how">How to play</a>
       <a href="#credits">Credits</a>
+      <a href="#teaser">Coming soon</a>
     </nav>
-    <a class="button button-dark header-cta" href="#play">Play a round <span aria-hidden="true">↗</span></a>
+    <div class="header-actions">
+      <button class="settings-trigger" id="settings-open" type="button" aria-haspopup="dialog" aria-controls="settings-panel"><span aria-hidden="true">⚙</span><b>Settings</b></button>
+      <a class="button button-dark header-cta" href="#play">Play a round <span aria-hidden="true">↗</span></a>
+    </div>
   </header>
+  <div class="holiday-lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <main id="home">
 
@@ -269,6 +351,34 @@
       </div>
 
       <div class="hero-index"><span>01</span><i></i><span>06</span></div>
+    </section>
+
+    <!-- UPCOMING UPDATE TEASER -->
+    <section class="teaser-section" id="teaser" aria-labelledby="teaser-title">
+      <div class="teaser-frame">
+        <div class="teaser-scene" aria-hidden="true">
+          <div class="teaser-sky"></div>
+          <div class="teaser-glow"></div>
+          <div class="teaser-skyline"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="teaser-figure"></div>
+          <div class="teaser-beam"></div>
+          <div class="teaser-grain"></div>
+        </div>
+        <div class="teaser-bar teaser-bar-top" aria-hidden="true"><span>SIDEQUEST STUDIOS PRESENTS</span><span>● REC 00:00:24</span></div>
+        <div class="teaser-copy">
+          <p class="teaser-line teaser-line-1">In a world where every idea starts small…</p>
+          <p class="teaser-line teaser-line-2">one founder is about to level up.</p>
+          <p class="teaser-kicker">The next update</p>
+          <h2 id="teaser-title" class="teaser-title">SIDEQUEST<em>Season Two</em></h2>
+          <p class="teaser-tagline">New missions. Bigger stakes. Build it with your crew.</p>
+          <div class="teaser-meta">
+            <span class="teaser-rating"><b>F</b>FOR FOUNDERS</span>
+            <span class="teaser-date">COMING SOON</span>
+          </div>
+          <button class="button button-lime teaser-replay" type="button" id="teaser-replay">Replay teaser <span>↻</span></button>
+        </div>
+        <div class="teaser-bar teaser-bar-bottom" aria-hidden="true"><span>THIS SEASON ON SIDEQUEST</span><span>STAY CURIOUS ✳</span></div>
+      </div>
     </section>
 
     <!-- PLAYER STATS -->
@@ -582,6 +692,7 @@
         <a href="legal/terms.html">Terms &amp; Conditions</a>
         <a href="legal/privacy.html">Privacy Policy</a>
         <button id="privacy-settings" type="button">Privacy choices</button>
+        <button id="footer-settings" type="button">Settings</button>
       </nav>
     </div>
   </footer>

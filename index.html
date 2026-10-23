@@ -1,0 +1,734 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b10">
+  <meta name="description" content="Sidequest is a next-generation founder game. Build real-world business skills through six high-energy missions.">
+  <title>Sidequest — Build what’s next.</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="christmas.css">
+  <script>try { if (sessionStorage.getItem('sidequest-xmas-unwrapped') && (Date.now() >= new Date(2026, 11, 1).getTime() || location.search.includes('preview-xmas'))) document.documentElement.classList.add('xmas'); } catch { /* Show the wrapped page first. */ }</script>
+  <script src="app.js" defer></script>
+  <script src="christmas.js" defer></script>
+  <style>
+    /* SideQuest hero credit slider: self-contained */
+    #sq-hero-credits {
+      position: relative;
+      min-height: 76px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    #sq-hero-credits .sq-credit-slide {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      animation: sq-credit-enter .45s ease both;
+    }
+
+    #sq-hero-credits .sq-credit-slide.sq-current {
+      display: flex;
+    }
+
+    #sq-hero-credits .sq-credit-icon {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #c6fa65;
+      border-radius: 50%;
+      color: #c6fa65;
+      font-size: 20px;
+    }
+
+    #sq-hero-credits .sq-credit-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    #sq-hero-credits .sq-credit-copy small {
+      color: #a5b0bd;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    #sq-hero-credits .sq-credit-copy strong {
+      color: #f5f7f2;
+      font-size: 14px;
+    }
+
+    #sq-hero-credits .sq-credit-controls {
+      display: flex;
+      gap: 5px;
+      margin-left: auto;
+    }
+
+    #sq-hero-credits .sq-credit-controls button {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #39424c;
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #sq-hero-credits .sq-credit-controls button:hover {
+      border-color: #c6fa65;
+      color: #c6fa65;
+    }
+
+    #sq-hero-credits .sq-credit-dots {
+      display: flex;
+      gap: 5px;
+      margin-top: 9px;
+      padding-left: 52px;
+    }
+
+    #sq-hero-credits .sq-credit-dot {
+      width: 17px;
+      height: 3px;
+      padding: 0;
+      border: 0;
+      background: #39424c;
+      cursor: pointer;
+    }
+
+    #sq-hero-credits .sq-credit-dot.sq-current {
+      width: 27px;
+      background: #c6fa65;
+    }
+
+    @keyframes sq-credit-enter {
+      from { opacity: 0; transform: translateX(18px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #sq-hero-credits .sq-credit-slide {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="site-home">
+
+  <section class="privacy-choice-overlay" id="privacy-choice" role="dialog" aria-modal="true" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+    <div class="privacy-choice-card">
+      <div class="privacy-choice-mark">◈</div>
+      <p class="eyebrow">COOKIE &amp; PRIVACY CHOICES</p>
+      <h2 id="privacy-choice-title">Your progress.<br><em>Your call.</em></h2>
+      <p id="privacy-choice-copy">This prototype uses no advertising or analytics cookies. Choose whether Sidequest may save your game progress in this browser. You can still play if you decline.</p>
+      <div class="privacy-choice-actions">
+        <button class="button button-lime" id="accept-progress">Accept &amp; save progress <span>↗</span></button>
+        <button class="button button-dark" id="decline-progress">Decline &amp; keep playing <span>→</span></button>
+      </div>
+      <a class="privacy-choice-link" href="legal/privacy.html">See exactly what is stored ↗</a>
+    </div>
+  </section>
+
+  <div class="topline">
+    <span class="xmas-hide">◉ SIDEQUEST / FOUNDER MODE <b>V1.0</b></span>
+    <span class="xmas-hide">THE FUTURE BELONGS TO THE CURIOUS <span class="topline-star">✳</span></span>
+    <span class="xmas-only">❄ SIDEQUEST / HOLIDAY EDITION <b>V1.25</b></span>
+    <span class="xmas-only">12 DAYS OF FOUNDER QUESTS ARE LIVE <span class="topline-star">✦</span></span>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Sidequest home">
+      <span class="brand-mark">S<span>✳</span></span>
+      <span>SIDEQUEST<small>YOUR NEXT BIG IDEA STARTS HERE</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="xmas-only" href="#holiday">Holiday quests</a>
+      <a href="#missions">Missions</a>
+      <a href="#toolkit">Founder tools</a>
+      <a href="#how">How to play</a>
+      <a href="#credits">Credits</a>
+    </nav>
+    <a class="button button-dark header-cta" href="#play">Play a round <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="home">
+
+    <!-- HERO SECTION -->
+    <section class="hero wrap">
+      <div class="hero-copy">
+
+        <!-- SLIDING CREDITS: ONLY IN THE FIRST HERO SECTION -->
+        <div id="sq-hero-credits" aria-label="SideQuest project acknowledgements">
+
+          <div class="sq-credit-slide sq-current" aria-hidden="false">
+            <span class="sq-credit-icon">✳</span>
+            <span class="sq-credit-copy">
+              <small>OUR VISION. OUR JOURNEY.</small>
+              <strong>Made with TechWonders</strong>
+            </span>
+          </div>
+
+          <div class="sq-credit-slide" aria-hidden="true">
+            <span class="sq-credit-icon">✦</span>
+            <span class="sq-credit-copy">
+              <small>A BIG THANK YOU</small>
+              <strong>Thank you, Netfix Ad Co.</strong>
+            </span>
+          </div>
+
+          <div class="sq-credit-slide" aria-hidden="true">
+            <span class="sq-credit-icon">🇱🇰</span>
+            <span class="sq-credit-copy">
+              <small>OUR ROOTS. OUR FUTURE.</small>
+              <strong>Proudly made in Sri Lanka</strong>
+            </span>
+          </div>
+
+          <div class="sq-credit-slide" aria-hidden="true">
+            <span class="sq-credit-icon">↗</span>
+            <span class="sq-credit-copy">
+              <small>THE NEXT GENERATION</small>
+              <strong>Built for bold thinkers</strong>
+            </span>
+          </div>
+
+          <div class="sq-credit-slide" aria-hidden="true">
+            <span class="sq-credit-icon">◈</span>
+            <span class="sq-credit-copy">
+              <small>THE SIDEQUEST PROJECT</small>
+              <strong>Human-led. AI-assisted.</strong>
+            </span>
+          </div>
+
+          <div class="sq-credit-controls">
+            <button type="button" id="sq-credit-prev" aria-label="Previous credit">←</button>
+            <button type="button" id="sq-credit-next" aria-label="Next credit">→</button>
+          </div>
+
+          <div class="sq-credit-dots" aria-label="Choose a credit">
+            <button class="sq-credit-dot sq-current" type="button" aria-label="Credit 1"></button>
+            <button class="sq-credit-dot" type="button" aria-label="Credit 2"></button>
+            <button class="sq-credit-dot" type="button" aria-label="Credit 3"></button>
+            <button class="sq-credit-dot" type="button" aria-label="Credit 4"></button>
+            <button class="sq-credit-dot" type="button" aria-label="Credit 5"></button>
+          </div>
+        </div>
+
+        <p class="eyebrow xmas-hide"><span class="eyebrow-dot"></span> A REAL-WORLD BUSINESS GAME FOR BIG-THINKING TEENS</p>
+        <h1 class="xmas-hide">Think big.<br><em>Build boldly.</em></h1>
+        <p class="eyebrow xmas-only"><span class="eyebrow-dot"></span> THE SIDEQUEST HOLIDAY EDITION IS HERE</p>
+        <h1 class="xmas-only">Dream big.<br><em>Gift boldly.</em></h1>
+        <p class="hero-intro xmas-only">Twelve days of bite-size founder quests, a winter pop-up stall to run, and a whole season of ideas worth wrapping up. Same missions—now with extra sparkle.</p>
+        <p class="hero-intro xmas-hide">Your idea is the starting line. Run the missions, make the calls, learn the moves—and build the confidence to turn “what if?” into “what’s next?”</p>
+        <div class="hero-actions">
+          <a class="button button-lime xmas-hide" href="#play">Enter founder mode <span aria-hidden="true">↗</span></a>
+          <a class="button button-lime xmas-only" href="#holiday">Open the holiday quests <span aria-hidden="true">🎁</span></a>
+          <span class="hero-note"><span class="spark-mini">✦</span> 6 missions · 2 founder tools · 0 experience required</span>
+        </div>
+        <div class="hero-footnote">
+          <span class="hero-pulse"></span>
+          <span>DESIGNED FOR THE NEXT GENERATION OF BUILDERS</span>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-label="Mission-control illustration: an illuminated planet surrounded by orbital paths">
+        <div class="visual-grid"></div>
+        <div class="visual-scan"></div>
+        <div class="visual-topline"><span><i></i> LIVE BUILD ENVIRONMENT</span><span>SYS. 001 / 026</span></div>
+        <div class="planet-halo"></div>
+        <div class="planet-orbit orbit-a"></div>
+        <div class="planet-orbit orbit-b"></div>
+        <div class="planet-orbit orbit-c"></div>
+        <svg class="planet-svg" viewBox="0 0 600 500" role="img" aria-label="A luminous planet with intersecting orbital paths">
+          <defs>
+            <radialGradient id="planetGlow" cx="35%" cy="27%">
+              <stop offset="0%" stop-color="#f4ffb0"/>
+              <stop offset="24%" stop-color="#c6fa65"/>
+              <stop offset="66%" stop-color="#4ebc9c"/>
+              <stop offset="100%" stop-color="#172c35"/>
+            </radialGradient>
+            <linearGradient id="orbitGlow" x1="0" x2="1">
+              <stop offset="0%" stop-color="#8cfcf5" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#9cfffa"/>
+              <stop offset="100%" stop-color="#8cfcf5" stop-opacity="0"/>
+            </linearGradient>
+            <clipPath id="planetClip"><circle cx="300" cy="248" r="105"/></clipPath>
+          </defs>
+          <ellipse cx="300" cy="248" rx="239" ry="76" transform="rotate(-22 300 248)" fill="none" stroke="url(#orbitGlow)" stroke-width="1.4"/>
+          <ellipse cx="300" cy="248" rx="208" ry="138" transform="rotate(38 300 248)" fill="none" stroke="#c7fa715e" stroke-width="1"/>
+          <circle cx="300" cy="248" r="105" fill="url(#planetGlow)"/>
+          <g clip-path="url(#planetClip)" fill="none" stroke="#e5ffa37a" stroke-width="1">
+            <ellipse cx="300" cy="248" rx="105" ry="38"/>
+            <ellipse cx="300" cy="248" rx="105" ry="72"/>
+            <ellipse cx="300" cy="248" rx="45" ry="105"/>
+            <ellipse cx="300" cy="248" rx="78" ry="105"/>
+            <path d="M193 247h214M208 208h184M209 289h182"/>
+          </g>
+          <circle cx="133" cy="321" r="5" fill="#e2ff8c"/>
+          <circle cx="480" cy="183" r="4" fill="#a2fffb"/>
+          <circle cx="377" cy="85" r="2.5" fill="#fff"/>
+          <g class="xmas-only xmas-ornament-cap">
+            <rect x="280" y="132" width="40" height="22" rx="4" fill="#e9c46a" stroke="#fff3c4" stroke-width="1.2"/>
+            <path d="M284 138h32M284 146h32" stroke="#a9812c" stroke-width="1.4"/>
+            <path d="M300 132c-14-2-16-26 0-26s14 24 0 26" fill="none" stroke="#e9c46a" stroke-width="3"/>
+            <path d="M300 106V0" stroke="#fff3c477" stroke-width="1" stroke-dasharray="3 5"/>
+          </g>
+          <path d="M86 375c58-43 91-48 150-24M421 355c39-35 60-48 107-54" fill="none" stroke="#d7fcac77" stroke-dasharray="2 7"/>
+        </svg>
+        <div class="telemetry telemetry-a"><span>MISSION</span><b>IDEA → IMPACT</b><i>TRAJECTORY LOCKED</i></div>
+        <div class="telemetry telemetry-b"><span>SKILLS ONLINE</span><b>06 <small>/ 06</small></b><i>BUILD · TEST · LEARN</i></div>
+        <div class="visual-caption xmas-only"><span>01 / YOUR IDEA, ON THE TREE</span><span>FESTIVE MODE <i>●</i></span></div>
+        <div class="visual-caption xmas-hide"><span>01 / YOUR IDEA, IN ORBIT</span><span>SIMULATION MODE <i>●</i></span></div>
+      </div>
+
+      <div class="hero-index"><span>01</span><i></i><span>06</span></div>
+    </section>
+
+    <!-- PLAYER STATS -->
+    <section class="stats-strip wrap" aria-label="Your game stats">
+      <div class="strip-label"><span class="live-dot"></span> YOUR FIELD NOTES</div>
+      <div class="stat"><strong id="xp-count">0</strong><span>XP EARNED</span></div>
+      <div class="stat"><strong id="mission-count">0</strong><span>MISSIONS DONE</span></div>
+      <div class="stat stat-level"><strong id="level-name">Curious</strong><span>YOUR CURRENT LEVEL</span></div>
+      <div class="stat"><strong id="badge-count">0 / 6</strong><span>BADGES UNLOCKED</span></div>
+    </section>
+
+    <!-- HOLIDAY EDITION -->
+    <section class="xmas-section xmas-only" id="holiday" aria-labelledby="holiday-title">
+      <div class="wrap">
+        <div class="xmas-heading">
+          <div>
+            <p class="eyebrow">THE HOLIDAY EDITION · DEC 1 → DEC 12</p>
+            <h2 id="holiday-title">Twelve days of<br><em>founder quests.</em></h2>
+          </div>
+          <p class="xmas-side">One tiny real-world challenge behind every door.<br>Open them in any order—no XP lost, ever.</p>
+        </div>
+
+        <div class="advent-meta">
+          <span><b id="advent-count">0</b> / 12 DOORS OPENED</span>
+          <span class="advent-track"><i id="advent-progress"></i></span>
+        </div>
+        <div class="advent-grid" id="advent-grid" aria-label="Advent calendar of founder challenges"></div>
+
+        <article class="cocoa-card" id="cocoa">
+          <div class="cocoa-copy">
+            <span class="cocoa-tag">MISSION 07 · LIMITED SEASON</span>
+            <h3>The winter<br>cocoa stall.</h3>
+            <p>Your school's winter fair is on Saturday. The stall fee is <b>$15</b> and each cup of cocoa costs <b>$0.80</b> to make. Set your price, pick how many cups to prep, then open the stall.</p>
+            <ul class="cocoa-facts">
+              <li><span>STALL FEE</span><b>$15</b></li>
+              <li><span>COST / CUP</span><b>$0.80</b></li>
+              <li><span>MARSHMALLOWS</span><b>+$0.40</b></li>
+            </ul>
+          </div>
+          <form class="cocoa-controls" id="cocoa-form">
+            <label>Price per cup <output id="cocoa-price-out">$2.50</output>
+              <input type="range" id="cocoa-price" min="1" max="6" step="0.25" value="2.5">
+            </label>
+            <label>Cups to prep <output id="cocoa-batch-out">60</output>
+              <input type="range" id="cocoa-batch" min="20" max="140" step="10" value="60">
+            </label>
+            <label class="cocoa-toggle"><input type="checkbox" id="cocoa-extra"> <span>Add marshmallows (people love them)</span></label>
+            <button class="button button-lime" type="submit">Open the stall <span aria-hidden="true">☕</span></button>
+            <div class="cocoa-result" id="cocoa-result" aria-live="polite">Set your numbers and open the stall to see how the day goes.</div>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <!-- FOUNDER PROGRESS -->
+    <section class="journey-section">
+      <div class="wrap journey-wrap">
+        <div class="journey-copy">
+          <p class="eyebrow">YOUR FOUNDER PATH</p>
+          <h2>Progress looks<br><em>good on you.</em></h2>
+          <p>Every decision builds a skill. Every mission moves you forward.</p>
+        </div>
+        <div class="journey-card">
+          <div class="journey-top">
+            <span>LEVEL <b id="journey-level">01</b> · <strong id="journey-rank">CURIOUS</strong></span>
+            <span><b id="journey-xp">0</b> XP</span>
+          </div>
+          <div class="journey-track"><i id="journey-progress"></i></div>
+          <div class="journey-next">
+            <span id="journey-next-label">Next: Spark Starter</span>
+            <span id="journey-needed">50 XP to go</span>
+          </div>
+          <div class="badge-shelf" id="badge-shelf" aria-label="Mission badges">
+            <span class="badge-chip locked" data-badge="pricing">$ Money</span>
+            <span class="badge-chip locked" data-badge="audience">◎ Audience</span>
+            <span class="badge-chip locked" data-badge="teamwork">✳ Teamwork</span>
+            <span class="badge-chip locked" data-badge="budget">◒ Budget</span>
+            <span class="badge-chip locked" data-badge="branding">✎ Branding</span>
+            <span class="badge-chip locked" data-badge="pitch">↗ Pitching</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIX MISSIONS -->
+    <section class="mission-section" id="missions">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CHOOSE YOUR OWN ADVENTURE</p>
+            <h2>Pick a mission.<br><em>Make your move.</em></h2>
+          </div>
+          <p class="section-side">Real-world choices, made bite-size.<br>Each mission takes about 3 minutes.</p>
+        </div>
+
+        <div class="mission-grid">
+          <article class="mission-card mission-featured">
+            <div class="card-topline"><span class="mission-number">MISSION 001</span><span class="difficulty"><i></i> STARTER</span></div>
+            <div class="mission-illustration pricing-art">
+              <div class="price-tag"><small>YOUR PRICE</small><strong>$ 8<span>.00</span></strong><i>↗</i></div>
+              <span class="coin coin-a">$</span><span class="coin coin-b">✳</span><div class="art-wave"></div>
+            </div>
+            <div class="card-content">
+              <div class="skill-tag"><span>✳</span> MONEY SMARTS</div>
+              <h3>The first price</h3>
+              <p>Your homemade cookie pop-up is ready. What should one box cost?</p>
+              <button class="text-button start-mission" data-mission="pricing">Play this mission <span>↗</span></button>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <div class="card-topline"><span class="mission-number">MISSION 002</span><span class="difficulty"><i></i> STARTER</span></div>
+            <div class="mission-illustration audience-art">
+              <div class="bubble bubble-a">“We need a gift!”</div><div class="bubble bubble-b">“For my bestie ✿”</div>
+              <span class="person-dot person-a">J</span><span class="person-dot person-b">M</span><div class="target-icon">◎</div>
+            </div>
+            <div class="card-content">
+              <div class="skill-tag skill-coral"><span>✳</span> KNOW YOUR PEOPLE</div>
+              <h3>Who is it for?</h3>
+              <p>Everyone could buy your custom tote. Who should you talk to first?</p>
+              <button class="text-button start-mission" data-mission="audience">Play this mission <span>↗</span></button>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <div class="card-topline"><span class="mission-number">MISSION 003</span><span class="difficulty"><i></i> STARTER</span></div>
+            <div class="mission-illustration teamwork-art">
+              <div class="team-note"><span>PLAN</span><b>Make it<br>together.</b><i>✳</i></div>
+              <span class="team-person team-a">A</span><span class="team-person team-b">T</span><span class="team-person team-c">R</span><div class="team-line"></div>
+            </div>
+            <div class="card-content">
+              <div class="skill-tag skill-blue"><span>✳</span> TEAMWORK</div>
+              <h3>The best next step</h3>
+              <p>Your crew has a big idea and a tiny budget. What do you do first?</p>
+              <button class="text-button start-mission" data-mission="teamwork">Play this mission <span>↗</span></button>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <div class="card-topline"><span class="mission-number">MISSION 004</span><span class="difficulty"><i></i> STARTER</span></div>
+            <div class="mission-illustration budget-art">
+              <div class="budget-receipt"><small>IDEA FUND</small><strong>$ 40</strong><i></i><i></i><i></i><b>PLAN FIRST ✳</b></div>
+              <span class="budget-coin">$</span>
+            </div>
+            <div class="card-content">
+              <div class="skill-tag skill-blue"><span>✳</span> BUDGET BASICS</div>
+              <h3>Make $40 go further</h3>
+              <p>You have a small launch budget. What deserves your first dollars?</p>
+              <button class="text-button start-mission" data-mission="budget">Play this mission <span>↗</span></button>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <div class="card-topline"><span class="mission-number">MISSION 005</span><span class="difficulty"><i></i> STARTER</span></div>
+            <div class="mission-illustration brand-art">
+              <div class="brand-block brand-one">GOOD<br><b>IDEAS</b></div>
+              <div class="brand-block brand-two">MAKE<br><b>NOISE</b></div>
+              <div class="brand-spark">✳</div>
+            </div>
+            <div class="card-content">
+              <div class="skill-tag skill-coral"><span>✳</span> BRAND & STORY</div>
+              <h3>Give it a little spark</h3>
+              <p>Turn a simple product into something people remember.</p>
+              <button class="text-button start-mission" data-mission="branding">Play this mission <span>↗</span></button>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <div class="card-topline"><span class="mission-number">MISSION 006</span><span class="difficulty"><i></i> STARTER</span></div>
+            <div class="mission-illustration pitch-art">
+              <div class="pitch-bubble">THE BIG<br><b>IDEA</b><span>↗</span></div>
+              <div class="pitch-ray ray-one"></div><div class="pitch-ray ray-two"></div><div class="pitch-ray ray-three"></div>
+            </div>
+            <div class="card-content">
+              <div class="skill-tag"><span>✳</span> PITCH WITH PURPOSE</div>
+              <h3>Say it in 20 seconds</h3>
+              <p>Make your idea clear, memorable, and easy to understand.</p>
+              <button class="text-button start-mission" data-mission="pitch">Play this mission <span>↗</span></button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER TOOLKIT -->
+    <section class="toolkit-section" id="toolkit">
+      <div class="wrap">
+        <div class="section-heading toolkit-heading">
+          <div>
+            <p class="eyebrow">THE FOUNDER TOOLKIT</p>
+            <h2>Try the idea<br><em>before the big leap.</em></h2>
+          </div>
+          <p class="section-side">No spreadsheet wizardry.<br>Just a couple of useful first moves.</p>
+        </div>
+
+        <div class="toolkit-grid">
+          <article class="tool-card calculator-card">
+            <div class="tool-kicker"><span>TOOL 01</span><span class="tool-icon">$</span></div>
+            <h3>Price it with confidence.</h3>
+            <p>See what each item costs, then choose a simple margin to plan your price.</p>
+            <div class="calculator-fields">
+              <label>What did you spend?<span class="input-wrap">$ <input id="cost-input" type="number" min="0" step="0.5" value="24" inputmode="decimal"></span></label>
+              <label>How many items?<span class="input-wrap"><input id="units-input" type="number" min="1" step="1" value="8" inputmode="numeric"> items</span></label>
+              <label class="range-label">Keep for your work <span id="margin-value">30%</span><input id="margin-input" type="range" min="10" max="60" step="5" value="30"></label>
+            </div>
+            <div class="calculator-result">
+              <span>SUGGESTED STARTING PRICE / ITEM</span>
+              <strong id="price-result">$4.29</strong>
+              <small id="revenue-result">About $34.32 if all 8 sell · estimate, not a promise</small>
+            </div>
+            <p class="tool-footnote">A planning example. Remember to include your time and any other costs.</p>
+          </article>
+
+          <article class="tool-card pitch-card">
+            <div class="tool-kicker"><span>TOOL 02</span><span class="tool-icon pitch-icon">↗</span></div>
+            <h3>Build a tiny pitch.</h3>
+            <p>A strong intro says who it helps, what you make, and why it matters.</p>
+            <div class="pitch-fields">
+              <label>WHO IS IT FOR?
+                <select id="pitch-audience">
+                  <option>students with busy schedules</option>
+                  <option>friends looking for a thoughtful gift</option>
+                  <option>local creatives who want to stand out</option>
+                </select>
+              </label>
+              <label>WHAT DO YOU OFFER?
+                <select id="pitch-offer">
+                  <option>a colorful study-planner kit</option>
+                  <option>a custom tote with their own design</option>
+                  <option>a quick photo session for their project</option>
+                </select>
+              </label>
+              <label>WHY DOES IT MATTER?
+                <select id="pitch-benefit">
+                  <option>make their day a little easier</option>
+                  <option>turn their ideas into something real</option>
+                  <option>help them show off what makes them different</option>
+                </select>
+              </label>
+              <button class="button button-dark pitch-build" id="build-pitch">Build my pitch <span>↗</span></button>
+            </div>
+            <div class="pitch-result" id="pitch-result" aria-live="polite">Your pitch will show up here. Make it yours, then say it out loud.</div>
+            <p class="tool-footnote">Your selections stay in this page and are not saved.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK PLAY -->
+    <section class="play-section" id="play">
+      <div class="wrap play-wrap">
+        <div class="play-heading">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> YOUR NEXT DECISION IS WAITING</p>
+          <h2>Ready when <em>you are.</em></h2>
+          <p>Three quick choices. One new skill. No wrong turns—just chances to learn.</p>
+        </div>
+
+        <div class="game-panel" id="game-panel">
+          <div class="game-aside">
+            <div class="game-logo">S<span>✳</span></div>
+            <span class="game-mode">SIDEQUEST<br><b>QUICK PLAY</b></span>
+            <div class="game-aside-bottom">
+              <span>ROUND <b id="round-number">01</b> / 03</span>
+              <span class="round-bars"><i class="active"></i><i></i><i></i></span>
+            </div>
+          </div>
+
+          <div class="game-main" id="game-content">
+            <span class="game-step">MISSION SELECT <span>↘</span></span>
+            <h3>Your first decision<br>starts right here.</h3>
+            <p>Pick any mission above, or jump into a quick business challenge.</p>
+            <div class="option-list preview-options">
+              <button class="answer-option" data-action="start" data-mission="pricing"><span class="option-key">A</span><span>Set a fair price for your first product</span><span class="option-arrow">↗</span></button>
+              <button class="answer-option" data-action="start" data-mission="audience"><span class="option-key">B</span><span>Figure out who your customer is</span><span class="option-arrow">↗</span></button>
+              <button class="answer-option" data-action="start" data-mission="teamwork"><span class="option-key">C</span><span>Get your team moving together</span><span class="option-arrow">↗</span></button>
+              <button class="answer-option" data-action="start" data-mission="budget"><span class="option-key">D</span><span>Plan a tiny budget</span><span class="option-arrow">↗</span></button>
+              <button class="answer-option" data-action="start" data-mission="branding"><span class="option-key">E</span><span>Create a memorable brand</span><span class="option-arrow">↗</span></button>
+              <button class="answer-option" data-action="start" data-mission="pitch"><span class="option-key">F</span><span>Pitch the big idea</span><span class="option-arrow">↗</span></button>
+            </div>
+            <div class="game-bottom">
+              <span><span class="game-heart">♥</span> YOU CAN'T LOSE XP BY TRYING</span>
+              <button class="quiet-button" id="reset-progress" type="button">Reset progress</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="play-foot">
+          <span>TAKE YOUR TIME. TRUST YOUR INSTINCTS.</span>
+          <span id="save-status">PROGRESS STORAGE: YOUR CHOICE <i>✳</i></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO PLAY -->
+    <section class="how-section" id="how">
+      <div class="wrap how-wrap">
+        <div class="how-copy">
+          <p class="eyebrow">A LITTLE PRACTICE GOES A LONG WAY</p>
+          <h2>Business is a<br><em>learnable skill.</em></h2>
+          <p>No fancy words. No experience needed. Just everyday challenges that help you think like a founder—and back yourself in the real world.</p>
+          <a class="button button-dark" href="#missions">Find your first mission <span>↗</span></a>
+        </div>
+        <div class="how-steps">
+          <div class="how-step"><span>01</span><div><h3>Pick a path</h3><p>Start with money, marketing, or teamwork.</p></div><b>✳</b></div>
+          <div class="how-step"><span>02</span><div><h3>Make the call</h3><p>Choose what feels right. See what happens.</p></div><b>↗</b></div>
+          <div class="how-step"><span>03</span><div><h3>Take it with you</h3><p>Build skills you can use in your own life.</p></div><b>☻</b></div>
+          <div class="how-stamp">TRY<br><strong>AGAIN</strong><span>✳</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECT CREDITS -->
+    <section class="credits-section" id="credits">
+      <div class="wrap credits-wrap">
+        <div class="credits-title">
+          <span class="credits-star">✳</span>
+          <p class="eyebrow">BIG-COMPANY DREAMS. FIRST-DAY ENERGY.</p>
+          <h2>A billion-dollar<br><em>idea starts here.</em></h2>
+          <p>Built with global ambition and a world-class imagination—one first move at a time.</p>
+          <div class="ambition-stamp">MULTI-BILLION<br><b>AMBITION</b><i>✳</i></div>
+        </div>
+
+        <div class="credits-list">
+          <div class="credits-roll-head"><span>THE SIDEQUEST PROJECT</span><strong>THE CREDITS</strong></div>
+          <div class="credit-row"><span>HUMAN CONCEPT &amp; CREATIVE DIRECTION</span><strong>Human-led vision <small>AI-assisted prototype build</small></strong></div>
+          <div class="credit-row"><span>PROJECT VISION &amp; APPROVAL CREDIT</span><strong>TechWonders <small>Project approval credit</small></strong></div>
+          <div class="credit-row"><span>PRODUCT DEVELOPMENT &amp; PLATFORM</span><strong>Techno Inc. CCC <small>Product development credit</small></strong></div>
+          <div class="credit-row"><span>LEARNING DESIGN, GAME SYSTEMS &amp; TEAM</span><strong>Techno &amp; team <small>Concept, challenges, and experience</small></strong></div>
+          <div class="credit-row"><span>INTERFACE DESIGN COLLABORATION</span><strong>Netfix Ad Co. <small>Project design credit</small></strong></div>
+          <div class="credit-row"><span>PROJECT SPONSOR</span><strong>Technobotics LK <small>Sponsor credit supplied for this project</small></strong></div>
+          <div class="credit-row"><span>PROJECT ORIGIN</span><strong>Made in Sri Lanka 🇱🇰 <small>Designed for the next generation</small></strong></div>
+          <div class="credit-row"><span>CREATIVE TECHNOLOGY TOOLKIT</span><strong>Codex · Python · C++ <small>Project toolkit credits</small></strong></div>
+          <div class="credits-note"><b>THE AMBITION IS THE STORY.</b> “Multi-billion-dollar” describes the creative vision for this concept, not a claim of valuation or funding. Human-led direction with AI-assisted production; no measured human/AI percentage is claimed. External brand and sponsor credits should be confirmed with the credited organizations before public release.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap footer-top">
+      <a class="brand footer-brand" href="#home">
+        <span class="brand-mark">S<span>✳</span></span>
+        <span>SIDEQUEST<small>YOUR NEXT BIG IDEA STARTS HERE</small></span>
+      </a>
+      <p>Made in Sri Lanka 🇱🇰<br>Sponsored by Technobotics LK<span class="xmas-only"><br>Happy holidays from the Sidequest crew 🎄</span></p>
+      <a class="button button-lime" href="#play">Play a round <span>↗</span></a>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>© 2026 TECHWONDERS. ALL RIGHTS RESERVED.</span>
+      <span>HUMAN-LED · AI-ASSISTED <b>✳</b></span>
+      <nav aria-label="Legal">
+        <a href="legal/terms.html">Terms &amp; Conditions</a>
+        <a href="legal/privacy.html">Privacy Policy</a>
+        <button id="privacy-settings" type="button">Privacy choices</button>
+        <button class="xmas-only" id="xmas-rewrap" type="button">Re-wrap the page</button>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- SLIDER SCRIPT -->
+  <script>
+    (() => {
+      const root = document.getElementById("sq-hero-credits");
+      if (!root) return;
+
+      const slides = [...root.querySelectorAll(".sq-credit-slide")];
+      const dots = [...root.querySelectorAll(".sq-credit-dot")];
+      const previous = document.getElementById("sq-credit-prev");
+      const next = document.getElementById("sq-credit-next");
+
+      if (!slides.length || !dots.length || !previous || !next) return;
+
+      let current = 0;
+      let timer = null;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      function showSlide(index) {
+        current = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("sq-current", i === current);
+          slide.setAttribute("aria-hidden", String(i !== current));
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("sq-current", i === current);
+          dot.setAttribute("aria-current", i === current ? "true" : "false");
+        });
+      }
+
+      function stopTimer() {
+        if (timer !== null) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      function startTimer() {
+        stopTimer();
+
+        if (!reduceMotion.matches) {
+          timer = setInterval(() => showSlide(current + 1), 3500);
+        }
+      }
+
+      previous.addEventListener("click", () => {
+        showSlide(current - 1);
+        startTimer();
+      });
+
+      next.addEventListener("click", () => {
+        showSlide(current + 1);
+        startTimer();
+      });
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          showSlide(index);
+          startTimer();
+        });
+      });
+
+      root.addEventListener("mouseenter", stopTimer);
+      root.addEventListener("mouseleave", startTimer);
+      root.addEventListener("focusin", stopTimer);
+      root.addEventListener("focusout", event => {
+        if (!root.contains(event.relatedTarget)) startTimer();
+      });
+
+      showSlide(0);
+      startTimer();
+    })();
+  </script>
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+  kofiWidgetOverlay.draw('sqsideq', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support Us',
+    'floating-chat.donateButton.background-color': '#00b9fe',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>
+</body>
+</html>

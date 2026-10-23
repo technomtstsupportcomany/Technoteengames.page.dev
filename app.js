@@ -61,6 +61,8 @@
     catch { state = { ...defaultState, completedMissions: [] }; }
   }
   let current = null;
+  let shownLevel = null;
+  const celebrate = (name, detail) => window.dispatchEvent(new CustomEvent(name, { detail }));
   let questionIndex = 0;
   let roundCorrect = 0;
 
@@ -103,6 +105,9 @@
       { name: 'Venture Lead', short: 'VENTURE LEAD', min: 240, next: 240 }
     ];
     const level = [...levels].reverse().find((item) => state.xp >= item.min) || levels[0];
+    const levelIndex = levels.indexOf(level);
+    if (current && shownLevel !== null && levelIndex > shownLevel) celebrate('sq:levelup', { name: level.name });
+    shownLevel = levelIndex;
     $('level-name').textContent = level.name;
     $('journey-level').textContent = String(levels.indexOf(level) + 1).padStart(2, '0');
     $('journey-rank').textContent = level.short;
@@ -139,6 +144,7 @@
     const correct = choice === q.answer;
     if (correct) { roundCorrect++; state.xp += 10; state.correctAnswers++; save(); }
     showQuestion({ correct, text: correct ? q.good : q.learn });
+    if (correct) celebrate('sq:xp', { amount: 10, el: content.querySelector(`[data-answer="${choice}"]`) });
     content.querySelectorAll('[data-answer]').forEach((button) => { button.disabled = true; button.classList.toggle('is-selected', Number(button.dataset.answer) === choice); });
   }
   function nextStep() {
@@ -150,6 +156,7 @@
     const mission = missions[current];
     updateRound();
     content.innerHTML = `<span class="game-step">MISSION COMPLETE <span>✳</span></span><div class="result-medal">${roundCorrect === 3 ? '★' : '✳'}</div><div class="game-result-line">${mission.skill} · +15 COMPLETION XP</div><h3>You made moves.<br>That’s how it starts.</h3><p>You got ${roundCorrect} of 3 decisions right. ${roundCorrect < 3 ? 'You still picked up the key idea—every try counts.' : 'Great instincts. Keep building on them.'}</p><div class="feedback"><strong>Takeaway:</strong> ${mission.questions[2].learn}</div><button class="button button-dark game-next" id="play-again">Try another mission <span>↗</span></button><div class="game-bottom"><span><span class="game-heart">♥</span> ${saveConsent ? 'PROGRESS SAVED ON THIS DEVICE' : 'PROGRESS ENDS WITH THIS SESSION'}</span><button class="quiet-button" id="reset-progress" type="button">Reset progress</button></div>`;
+    celebrate('sq:complete', { perfect: roundCorrect === 3 });
     $('play-again').addEventListener('click', () => { current = null; questionIndex = 0; showHome(); });
     $('reset-progress').addEventListener('click', resetProgress);
   }

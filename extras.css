@@ -1,0 +1,100 @@
+/* Sidequest extras: Idea Reactor, Founder ID card, celebration FX */
+.sq-x-section{padding:88px 0;background:#080b10;color:#f1f5f2;border-bottom:1px solid #1a252d;position:relative;overflow:hidden}
+.sq-x-section .section-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:38px;flex-wrap:wrap}
+.sq-x-section h2{color:#f2f6f4}
+.sq-x-section h2 em{font-style:normal;color:#d5ff5e}
+.sq-x-section .eyebrow,.sq-x-section .section-side{color:#98a6ab}
+.sq-x-section .section-side{font-size:14px;line-height:1.6;margin:0}
+
+/* IDEA REACTOR */
+.reactor{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
+.reactor-machine{position:relative;padding:26px;border:1px solid #2a3841;background:radial-gradient(120% 90% at 50% 0%,#18242c,#0d131a 70%);box-shadow:0 0 0 1px #d5ff5e10 inset,0 30px 80px #0007}
+.reactor-machine::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,#ffffff05 0 1px,transparent 1px 4px);pointer-events:none}
+.reactor-top{display:flex;justify-content:space-between;font:10px var(--mono);letter-spacing:.12em;color:#7f8f96;margin-bottom:18px}
+.reactor-top i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d5ff5e;box-shadow:0 0 10px #d5ff5e;margin-right:6px;animation:sq-blink 1.4s infinite}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.reel{position:relative;height:134px;overflow:hidden;border:1px solid #33434d;background:#070a0e}
+.reel::before,.reel::after{content:"";position:absolute;left:0;right:0;height:38px;z-index:2;pointer-events:none}
+.reel::before{top:0;background:linear-gradient(#070a0e,transparent)}
+.reel::after{bottom:0;background:linear-gradient(transparent,#070a0e)}
+.reel small{position:absolute;top:8px;left:10px;z-index:3;font:9px var(--mono);letter-spacing:.14em;color:#6f7f86}
+.reel-strip{position:absolute;left:0;right:0;top:0;will-change:transform}
+.reel-item{height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0 10px;text-align:center}
+.reel-item b{font-size:30px;line-height:1}
+.reel-item span{font:600 14px/1.2 var(--display);letter-spacing:-.02em;color:#eef3ef}
+.reel.locked{border-color:#d5ff5e;box-shadow:0 0 22px #d5ff5e33 inset}
+.reel-lock{position:absolute;right:8px;top:6px;z-index:3;background:none;border:0;color:#6f7f86;font:9px var(--mono);letter-spacing:.1em;cursor:pointer;padding:2px}
+.reel.locked .reel-lock{color:#d5ff5e}
+.reactor-actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.reactor-lever{position:relative;overflow:hidden}
+.reactor-lever.spinning{pointer-events:none;opacity:.75}
+.reactor-hint{font:10px var(--mono);color:#7f8f96;letter-spacing:.08em}
+.reactor-output{display:flex;flex-direction:column;justify-content:space-between;padding:26px;border:1px solid #2a3841;background:linear-gradient(150deg,#151e27,#10161d)}
+.reactor-output .eyebrow{margin-bottom:12px}
+.reactor-idea{font:500 clamp(22px,2.4vw,30px)/1.12 var(--display);letter-spacing:-.04em;margin:0 0 14px;color:#f4f7f1;min-height:3.4em}
+.reactor-idea mark{background:none;color:#d5ff5e}
+.reactor-meter{margin:6px 0 18px}
+.reactor-meter div{display:flex;justify-content:space-between;font:10px var(--mono);letter-spacing:.1em;color:#98a6ab;margin-bottom:7px}
+.reactor-meter span{display:block;height:6px;background:#1e2a32;overflow:hidden}
+.reactor-meter span i{display:block;height:100%;width:0;background:linear-gradient(90deg,#85efd4,#d5ff5e);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.reactor-saved{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:6px;max-height:110px;overflow:auto}
+.reactor-saved li{font-size:12px;color:#b8c4c6;border-left:2px solid #d5ff5e;padding-left:9px}
+
+/* FOUNDER ID CARD */
+.idcard-wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center}
+.idcard-form{display:flex;flex-direction:column;gap:16px}
+.idcard-form label{display:flex;flex-direction:column;gap:8px;font:10px var(--mono);letter-spacing:.12em;color:#98a6ab}
+.idcard-form input,.idcard-form select{font:500 16px var(--sans);color:#f1f5f2;background:#0d131a;border:1px solid #2a3841;padding:12px 14px;outline:none}
+.idcard-form input:focus,.idcard-form select:focus{border-color:#d5ff5e}
+.idcard-swatches{display:flex;gap:8px}
+.idcard-swatches button{width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.idcard-swatches button[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 2px #080b10 inset}
+.idcard-buttons{display:flex;gap:12px;flex-wrap:wrap}
+.idcard-stage{perspective:1200px;display:grid;place-items:center}
+.idcard{--accent:#d5ff5e;position:relative;width:min(440px,100%);aspect-ratio:1.586;border-radius:20px;padding:24px;color:#f4f7f1;overflow:hidden;background:linear-gradient(135deg,#17232c,#0a0f14 60%);border:1px solid #ffffff22;box-shadow:0 40px 90px #000a,0 0 60px color-mix(in srgb,var(--accent) 18%,transparent);transform-style:preserve-3d;transition:transform .12s ease-out;display:flex;flex-direction:column;justify-content:space-between}
+.idcard::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--gx,30%) var(--gy,20%),#ffffff30,transparent 45%);mix-blend-mode:overlay;pointer-events:none}
+.idcard::after{content:"";position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);box-shadow:0 0 0 30px color-mix(in srgb,var(--accent) 6%,transparent),0 0 0 62px color-mix(in srgb,var(--accent) 4%,transparent);pointer-events:none}
+.idcard-head{display:flex;justify-content:space-between;font:10px var(--mono);letter-spacing:.14em;color:#a9b6ba}
+.idcard-head b{color:var(--accent)}
+.idcard-name{font:600 clamp(24px,3.4vw,34px)/1 var(--display);letter-spacing:-.05em;margin:0}
+.idcard-title{font:11px var(--mono);letter-spacing:.12em;color:var(--accent);margin-top:6px}
+.idcard-stats{display:flex;gap:22px;font:10px var(--mono);letter-spacing:.1em;color:#a9b6ba}
+.idcard-stats strong{display:block;font:600 20px var(--display);color:#f4f7f1;letter-spacing:-.03em}
+.idcard-badges{display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:1}
+.idcard-badges span{font:10px var(--mono);padding:3px 7px;border:1px solid #ffffff2a;color:#7b878b}
+.idcard-badges span.on{border-color:var(--accent);color:var(--accent)}
+.idcard-chip{position:absolute;right:24px;top:56px;width:42px;height:32px;border-radius:6px;background:linear-gradient(135deg,var(--accent),#7a8f3a);opacity:.85}
+
+/* CELEBRATION FX */
+.sq-fx-layer{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+.sq-confetti{position:absolute;width:8px;height:12px;will-change:transform,opacity}
+.sq-xp-pop{position:absolute;font:700 18px var(--display);color:#d5ff5e;text-shadow:0 0 18px #d5ff5e99;animation:sq-xp-rise 1.2s ease-out forwards;white-space:nowrap}
+.sq-toast{position:fixed;left:50%;bottom:28px;z-index:10000;transform:translate(-50%,140%);display:flex;align-items:center;gap:14px;padding:14px 20px;background:#0d131a;border:1px solid #d5ff5e;color:#f1f5f2;box-shadow:0 0 40px #d5ff5e44;transition:transform .5s cubic-bezier(.2,1.4,.4,1)}
+.sq-toast.show{transform:translate(-50%,0)}
+.sq-toast b{font-size:26px;color:#d5ff5e}
+.sq-toast small{display:block;font:9px var(--mono);letter-spacing:.14em;color:#98a6ab}
+.sq-toast strong{font:600 17px var(--display);letter-spacing:-.02em}
+body.sq-turbo{animation:sq-hue 6s linear infinite}
+
+@keyframes sq-blink{50%{opacity:.25}}
+@keyframes sq-xp-rise{0%{opacity:0;transform:translate(-50%,0) scale(.6)}15%{opacity:1;transform:translate(-50%,-14px) scale(1.15)}100%{opacity:0;transform:translate(-50%,-80px) scale(1)}}
+@keyframes sq-hue{to{filter:hue-rotate(360deg)}}
+
+@media(max-width:900px){
+  .reactor,.idcard-wrap{grid-template-columns:1fr}
+  .sq-x-section{padding:64px 0}
+}
+@media(max-width:680px){
+  .reels{gap:6px}
+  .reel{height:114px}
+  .reel-item{height:112px}
+  .reel-item b{font-size:24px}
+  .reel-item span{font-size:12px}
+  .reactor-machine,.reactor-output{padding:18px}
+  .idcard{padding:18px}
+  .idcard-chip{top:46px;right:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .reactor-top i,body.sq-turbo{animation:none}
+  .idcard{transition:none}
+}

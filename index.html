@@ -8,7 +8,9 @@
   <meta name="description" content="Sidequest is a next-generation founder game. Build real-world business skills through six high-energy missions.">
   <title>Sidequest — Build what’s next.</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="extras.css">
   <script src="app.js" defer></script>
+  <script src="extras.js" defer></script>
   <style>
     /* SideQuest hero credit slider: self-contained */
     #sq-hero-credits {
@@ -143,6 +145,7 @@
     <nav class="main-nav" aria-label="Main navigation">
       <a href="#missions">Missions</a>
       <a href="#toolkit">Founder tools</a>
+      <a href="#reactor">Idea Reactor</a>
       <a href="#how">How to play</a>
       <a href="#credits">Credits</a>
     </nav>
@@ -474,6 +477,47 @@
       </div>
     </section>
 
+    <!-- IDEA REACTOR -->
+    <section class="sq-x-section" id="reactor">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">NO IDEA YET? NO PROBLEM.</p>
+            <h2>Pull the lever.<br><em>Meet your next idea.</em></h2>
+          </div>
+          <p class="section-side">Three reels. Thousands of combos.<br>Lock what you love, remix the rest.</p>
+        </div>
+        <div class="reactor">
+          <div class="reactor-machine">
+            <div class="reactor-top"><span><i></i> IDEA REACTOR · ONLINE</span><span>CORE TEMP: CREATIVE</span></div>
+            <div class="reels">
+              <div class="reel" data-reel="product"><small>MAKE</small><button class="reel-lock" type="button" aria-pressed="false" aria-label="Lock the product reel">LOCK</button><div class="reel-strip"></div></div>
+              <div class="reel" data-reel="audience"><small>FOR</small><button class="reel-lock" type="button" aria-pressed="false" aria-label="Lock the audience reel">LOCK</button><div class="reel-strip"></div></div>
+              <div class="reel" data-reel="twist"><small>TWIST</small><button class="reel-lock" type="button" aria-pressed="false" aria-label="Lock the twist reel">LOCK</button><div class="reel-strip"></div></div>
+            </div>
+            <div class="reactor-actions">
+              <button class="button button-lime reactor-lever" id="reactor-spin" type="button">Spin the reactor <span aria-hidden="true">↻</span></button>
+              <span class="reactor-hint">TIP: LOCK A REEL TO KEEP IT</span>
+            </div>
+          </div>
+          <div class="reactor-output">
+            <div>
+              <p class="eyebrow">YOUR STARTUP IDEA</p>
+              <p class="reactor-idea" id="reactor-idea" aria-live="polite"></p>
+              <div class="reactor-meter">
+                <div><span>LAUNCHABILITY</span><b id="reactor-score">0%</b></div>
+                <span><i id="reactor-bar"></i></span>
+              </div>
+              <p class="tool-footnote" id="reactor-verdict"></p>
+            </div>
+            <div>
+              <ul class="reactor-saved" id="reactor-saved" aria-label="Saved ideas"></ul>
+              <button class="button button-dark" id="reactor-save" type="button">Save to idea vault <span aria-hidden="true">✦</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- QUICK PLAY -->
     <section class="play-section" id="play">
       <div class="wrap play-wrap">
@@ -537,6 +581,58 @@
       </div>
     </section>
 
+    <!-- FOUNDER ID CARD -->
+    <section class="sq-x-section" id="founder-id">
+      <div class="wrap idcard-wrap">
+        <div class="idcard-form">
+          <div>
+            <p class="eyebrow">CLAIM YOUR IDENTITY</p>
+            <h2>Every founder<br><em>needs an ID.</em></h2>
+          </div>
+          <p class="section-side">Your card levels up as you play. Name it, style it, download it, flex it.</p>
+          <label>FOUNDER NAME<input id="idcard-name-input" type="text" maxlength="22" placeholder="Future Founder" autocomplete="off"></label>
+          <label>YOUR SUPERPOWER
+            <select id="idcard-super">
+              <option>Big-idea energy</option>
+              <option>Hustle mode</option>
+              <option>Design brain</option>
+              <option>Number cruncher</option>
+              <option>Crowd charmer</option>
+              <option>Code wizard</option>
+            </select>
+          </label>
+          <label>CARD GLOW
+            <span class="idcard-swatches">
+              <button type="button" data-color="#d5ff5e" style="background:#d5ff5e" aria-label="Lime glow" aria-pressed="true"></button>
+              <button type="button" data-color="#85efd4" style="background:#85efd4" aria-label="Aqua glow" aria-pressed="false"></button>
+              <button type="button" data-color="#ff947b" style="background:#ff947b" aria-label="Coral glow" aria-pressed="false"></button>
+              <button type="button" data-color="#b9a6ff" style="background:#b9a6ff" aria-label="Violet glow" aria-pressed="false"></button>
+            </span>
+          </label>
+          <div class="idcard-buttons">
+            <button class="button button-lime" id="idcard-download" type="button">Download my card <span aria-hidden="true">↓</span></button>
+            <a class="button button-dark" href="#missions">Level it up <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="tool-footnote">Your card is made in your browser. Nothing is uploaded or saved.</p>
+        </div>
+        <div class="idcard-stage">
+          <div class="idcard" id="idcard">
+            <div class="idcard-head"><span>◉ SIDEQUEST / FOUNDER ID</span><b id="idcard-serial"></b></div>
+            <span class="idcard-chip" aria-hidden="true"></span>
+            <div>
+              <p class="idcard-name" id="idcard-name">Future Founder</p>
+              <div class="idcard-title" id="idcard-title"></div>
+            </div>
+            <div class="idcard-stats">
+              <span>XP<strong id="idcard-xp">0</strong></span>
+              <span>MISSIONS<strong id="idcard-missions">0</strong></span>
+              <span>LEVEL<strong id="idcard-level">Curious</strong></span>
+            </div>
+            <div class="idcard-badges" id="idcard-badges"></div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- PROJECT CREDITS -->
     <section class="credits-section" id="credits">
       <div class="wrap credits-wrap">

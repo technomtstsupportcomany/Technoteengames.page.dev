@@ -115,6 +115,45 @@
 </head>
 
 <body class="site-home">
+<!-- Intro trailer overlay -->
+<div id="intro-trailer" role="dialog" aria-label="Intro trailer">
+  <style>
+    #intro-trailer{position:fixed;inset:0;z-index:99999;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:system-ui,sans-serif;transition:opacity .8s}
+    #intro-trailer.done{opacity:0;pointer-events:none}
+    #intro-trailer .scene{position:absolute;text-align:center;opacity:0;padding:0 1.5rem}
+    #intro-trailer .scene h1{font-size:clamp(2.5rem,9vw,7rem);margin:0;letter-spacing:-.03em;background:linear-gradient(90deg,#7c5cff,#ff5ca8,#ffb15c);-webkit-background-clip:text;background-clip:text;color:transparent}
+    #intro-trailer .scene p{font-size:clamp(1rem,3vw,1.8rem);margin:.5rem 0;opacity:.85}
+    #intro-trailer .s1{animation:it-zoom 2s ease-out 0s forwards}
+    #intro-trailer .s2{animation:it-zoom 2s ease-out 2s forwards}
+    #intro-trailer .s3{animation:it-zoom 2.2s ease-out 4s forwards}
+    #intro-trailer .credits{animation:it-roll 3.5s linear 6.2s forwards}
+    #intro-trailer .credits p{font-size:1rem;opacity:.7}
+    #intro-trailer .credits strong{display:block;font-size:1.2rem;margin-top:.8rem}
+    #intro-trailer button{position:absolute;bottom:1.5rem;right:1.5rem;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:.5rem 1.2rem;cursor:pointer;font-size:.95rem}
+    @keyframes it-zoom{0%{opacity:0;transform:scale(.8)}20%,80%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.15)}}
+    @keyframes it-roll{0%{opacity:1;transform:translateY(60vh)}100%{opacity:1;transform:translateY(-60vh)}}
+    @media (prefers-reduced-motion:reduce){#intro-trailer .scene{animation-duration:.01s!important}}
+  </style>
+  <div class="scene s1"><p>This season…</p></div>
+  <div class="scene s2"><h1>SIDEQUEST</h1></div>
+  <div class="scene s3"><p>Build what’s next.</p><p>Now playing.</p></div>
+  <div class="scene credits">
+    <strong>Presented by</strong><p>Technotee Games</p>
+    <strong>Game Design</strong><p>The Sidequest Team</p>
+    <strong>Thanks for playing</strong><p>&nbsp;</p>
+  </div>
+  <button type="button" id="intro-skip">Skip ›</button>
+  <script>
+    (function(){
+      var el=document.getElementById('intro-trailer');
+      document.documentElement.style.overflow='hidden';
+      function end(){if(el.classList.contains('done'))return;el.classList.add('done');document.documentElement.style.overflow='';setTimeout(function(){el.remove()},900)}
+      document.getElementById('intro-skip').addEventListener('click',end);
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')end()});
+      setTimeout(end,9800);
+    })();
+  </script>
+</div>
 
   <section class="privacy-choice-overlay" id="privacy-choice" role="dialog" aria-modal="true" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
     <div class="privacy-choice-card">

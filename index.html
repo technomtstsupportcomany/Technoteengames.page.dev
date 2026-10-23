@@ -9,7 +9,7 @@
   <title>Sidequest — Build what’s next.</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="christmas.css">
-  <script>try { if (sessionStorage.getItem('sidequest-xmas-unwrapped')) document.documentElement.classList.add('xmas'); } catch { /* Show the wrapped page first. */ }</script>
+  <script>try { if (sessionStorage.getItem('sidequest-xmas-unwrapped') && (Date.now() >= new Date(2026, 11, 1).getTime() || location.search.includes('preview-xmas'))) document.documentElement.classList.add('xmas'); } catch { /* Show the wrapped page first. */ }</script>
   <script src="app.js" defer></script>
   <script src="christmas.js" defer></script>
   <style>

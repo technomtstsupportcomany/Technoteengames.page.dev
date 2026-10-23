@@ -3,11 +3,47 @@
   const root = document.documentElement;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const $ = id => document.getElementById(id);
+  // The Holiday Edition stays wrapped until midnight on 1 December in the visitor's own time zone.
+  // Adding ?preview-xmas to the URL skips the lock so the team can check it early.
+  const UNLOCK_AT = new Date(2026, 11, 1);
+  const previewEarly = new URLSearchParams(location.search).has('preview-xmas');
+  const isLocked = () => !previewEarly && Date.now() < UNLOCK_AT.getTime();
 
   /* ---------- Peel-off reveal ---------- */
   let corner = null;
   let hint = null;
   let peel = null;
+  let countdownTimer = null;
+
+  function countdownText() {
+    const left = Math.max(0, UNLOCK_AT.getTime() - Date.now());
+    const days = Math.floor(left / 864e5);
+    const hours = Math.floor(left / 36e5) % 24;
+    const minutes = Math.floor(left / 6e4) % 60;
+    return days > 0 ? `${days}d ${hours}h ${minutes}m` : `${hours}h ${minutes}m`;
+  }
+
+  function renderHint(nudged = false) {
+    if (!hint || !corner) return;
+    const locked = isLocked();
+    corner.classList.toggle('is-locked', locked);
+    if (locked) {
+      corner.setAttribute('aria-label', `The Sidequest Christmas update is wrapped until December 1. Unwraps in ${countdownText()}.`);
+      hint.innerHTML = nudged
+        ? `<small>NO PEEKING 🎅</small>Still wrapped! Come back on December 1 · <b>${countdownText()}</b>`
+        : `<small>🔒 HOLIDAY EDITION · DEC 1</small>Something's wrapped under here. Unwraps in <b>${countdownText()}</b>`;
+    } else {
+      corner.setAttribute('aria-label', 'Peel off the page to reveal the Sidequest Christmas update');
+      hint.innerHTML = '<small>NEW · HOLIDAY EDITION</small>Grab the corner to peel back the page 🎁';
+    }
+  }
+
+  function nudgeLocked() {
+    renderHint(true);
+    corner.classList.remove('is-tugged');
+    void corner.offsetWidth;
+    corner.classList.add('is-tugged');
+  }
 
   function showCorner() {
     if (corner) return;
@@ -19,18 +55,28 @@
     hint = document.createElement('div');
     hint.className = 'peel-hint';
     hint.setAttribute('aria-hidden', 'true');
-    hint.innerHTML = '<small>NEW · HOLIDAY EDITION</small>Grab the corner to peel back the page 🎁';
     document.body.append(hint, corner);
+    renderHint();
+    // Refresh the countdown, and switch the corner over to peelable the moment December arrives.
+    countdownTimer = setInterval(() => renderHint(), 30000);
 
-    corner.addEventListener('pointerdown', startDrag);
+    corner.addEventListener('pointerdown', event => {
+      if (isLocked()) { event.preventDefault(); nudgeLocked(); return; }
+      startDrag(event);
+    });
     // Keyboard activation (Enter/Space) fires click with no pointer details.
-    corner.addEventListener('click', event => { if (event.detail === 0) beginPeel().then(() => finishPeel()); });
+    corner.addEventListener('click', event => {
+      if (event.detail !== 0) return;
+      if (isLocked()) nudgeLocked();
+      else beginPeel().then(() => finishPeel());
+    });
   }
 
   function hideCorner() {
     corner?.remove();
     hint?.remove();
     corner = hint = null;
+    clearInterval(countdownTimer);
   }
 
   // Serialise the page as it looks right now so it can be peeled away in an isolated frame.
@@ -377,6 +423,7 @@
     showCorner();
   }
 
+  if (root.classList.contains('xmas') && isLocked()) root.classList.remove('xmas');
   if (root.classList.contains('xmas')) startFestive();
   else showCorner();
 })();

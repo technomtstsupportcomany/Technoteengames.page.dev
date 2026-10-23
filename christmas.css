@@ -270,6 +270,23 @@ html.xmas .site-home .eyebrow-dot { background: var(--xmas-red); box-shadow: 0 0
   pointer-events: none;
   animation: peel-bob 2.4s ease-in-out infinite;
 }
+.peel-hint b { font-family: var(--mono); font-weight: 400; white-space: nowrap; }
+/* Locked until December 1: a padlock on the wrapping, and a tug instead of a peel */
+.peel-corner.is-locked { cursor: not-allowed; }
+.peel-corner.is-locked .peel-under::after {
+  content: "🔒";
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  font-size: 22px;
+  filter: drop-shadow(0 2px 3px #0008);
+}
+.peel-corner.is-locked:hover .peel-under,
+.peel-corner.is-locked:focus-visible .peel-under { clip-path: polygon(100% 8%, 100% 100%, 8% 100%); }
+.peel-corner.is-locked:hover .peel-flap,
+.peel-corner.is-locked:focus-visible .peel-flap { clip-path: polygon(8% 100%, 100% 8%, 8% 8%); }
+.peel-corner.is-tugged { animation: peel-locked-tug .45s ease; }
+@keyframes peel-locked-tug { 20% { transform: translate(-6px, -6px); } 45% { transform: translate(2px, 2px); } 65% { transform: translate(-3px, -3px); } 100% { transform: none; } }
 .peel-hint small { display: block; font: 9px var(--mono); letter-spacing: .12em; opacity: .85; margin-bottom: 4px; }
 @keyframes peel-bob { 50% { transform: translateY(-6px); } }
 

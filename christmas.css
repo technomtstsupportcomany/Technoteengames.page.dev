@@ -1,0 +1,326 @@
+/* Sidequest Holiday Edition — layered on top of styles.css.
+   Everything festive is scoped to html.xmas, which is set once the visitor peels the old page away. */
+
+html:not(.xmas) .xmas-only { display: none !important; }
+html.xmas .xmas-hide { display: none !important; }
+
+/* ---------- Palette + reskin ---------- */
+html.xmas .site-home {
+  --xmas-red: #ff4f5e;
+  --xmas-gold: #ffd36b;
+  --xmas-pine: #0d2a1f;
+  --xmas-snow: #f6fbff;
+  background: #070c0d;
+}
+html.xmas .site-home .topline { background: linear-gradient(90deg, #3a0c12, #05070a 30%, #05070a 70%, #0d2a1f); }
+html.xmas .site-home .topline b,
+html.xmas .site-home .topline-star { color: var(--xmas-gold); }
+html.xmas .site-home .site-header { overflow: visible; }
+
+html.xmas .site-home .hero h1 em {
+  background: linear-gradient(100deg, #ff6b74 4%, var(--xmas-gold) 48%, #d5ff5e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+html.xmas .site-home .section-heading h2 em,
+html.xmas .site-home .journey-copy h2 em { color: var(--xmas-gold); }
+html.xmas .site-home .toolkit-heading h2 em,
+html.xmas .site-home .how-copy h2 em { color: var(--xmas-red); }
+html.xmas .site-home .play-section {
+  background: radial-gradient(ellipse at 12% 0%, #ffffff55, transparent 42%), linear-gradient(135deg, #ffd36b, #ff8c7a 55%, #ff4f5e);
+}
+html.xmas .site-home .play-heading h2 em { color: #7d0f1d; }
+html.xmas .site-home .credits-section {
+  background: radial-gradient(ellipse at 82% 15%, #5a141c66, transparent 42%), linear-gradient(145deg, #0d2a1f, #090c10 65%);
+}
+html.xmas .site-home .brand-mark { position: relative; }
+html.xmas .site-home .brand-mark::after {
+  content: "";
+  position: absolute;
+  top: -13px;
+  right: -9px;
+  width: 26px;
+  height: 18px;
+  background: var(--xmas-red);
+  clip-path: polygon(0 100%, 62% 0, 100% 62%, 100% 100%);
+  border-bottom: 4px solid #fff;
+  transform: rotate(14deg);
+  pointer-events: none;
+}
+html.xmas .site-home .eyebrow-dot { background: var(--xmas-red); box-shadow: 0 0 12px var(--xmas-red); }
+
+/* Ornament cap sitting on top of the hero planet */
+.xmas-ornament-cap { filter: drop-shadow(0 0 8px #ffd36b88); }
+
+/* ---------- String of lights under the header ---------- */
+.xmas-lights {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -14px;
+  height: 22px;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+  z-index: 11;
+  background: radial-gradient(ellipse 50% 14px at 50% 0, transparent 92%, #2b3a33 93% 100%, transparent 101%) 0 -6px / 60px 22px repeat-x;
+}
+.xmas-lights i {
+  width: 8px;
+  height: 13px;
+  margin-top: 4px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: var(--c);
+  box-shadow: 0 0 10px 2px var(--c);
+  animation: xmas-twinkle 1.6s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+.xmas-lights i:nth-child(4n+1) { --c: #ff4f5e; }
+.xmas-lights i:nth-child(4n+2) { --c: #ffd36b; }
+.xmas-lights i:nth-child(4n+3) { --c: #6cf0a8; }
+.xmas-lights i:nth-child(4n+4) { --c: #7fd6ff; }
+@keyframes xmas-twinkle { 50% { opacity: .35; box-shadow: 0 0 3px 0 var(--c); } }
+
+/* ---------- Snow ---------- */
+.xmas-snow {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ---------- Holiday section ---------- */
+.xmas-section {
+  position: relative;
+  padding: 96px 0 104px;
+  color: #f3f7f4;
+  background:
+    radial-gradient(ellipse at 10% 0%, #ff4f5e22, transparent 40%),
+    radial-gradient(ellipse at 95% 90%, #ffd36b1f, transparent 45%),
+    linear-gradient(180deg, #0d2a1f, #08130f 70%, #070c0d);
+  border-block: 1px solid #1d3a2c;
+  overflow: hidden;
+}
+.xmas-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+.xmas-heading .eyebrow { color: var(--xmas-gold); margin-bottom: 18px; }
+.xmas-heading h2 { font: 500 clamp(44px, 6vw, 76px)/.99 var(--display); letter-spacing: -.075em; margin: 0; }
+.xmas-heading h2 em { font-style: normal; color: var(--xmas-red); }
+.xmas-side { font-size: 12px; line-height: 1.7; color: #a9bdb3; margin: 0 0 3px; text-align: right; }
+
+.advent-meta { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; font: 10px var(--mono); letter-spacing: .1em; color: #a9bdb3; }
+.advent-meta b { color: var(--xmas-gold); font-weight: 400; }
+.advent-track { flex: 1; height: 6px; border-radius: 6px; background: #ffffff14; overflow: hidden; }
+.advent-track i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--xmas-red), var(--xmas-gold)); transition: width .4s ease; }
+
+.advent-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 44px; }
+.advent-door {
+  position: relative;
+  aspect-ratio: 1 / 1.08;
+  perspective: 700px;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.advent-door .door-back,
+.advent-door .door-front {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  padding: 14px;
+}
+.advent-door .door-back {
+  background: #f7f2e3;
+  color: #1a1f1b;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  overflow: auto;
+}
+.advent-door .door-back small { font: 9px var(--mono); letter-spacing: .1em; color: #b1323d; }
+.advent-door .door-front {
+  display: grid;
+  place-items: center;
+  transform-origin: left center;
+  transition: transform .7s cubic-bezier(.3, .8, .3, 1);
+  backface-visibility: hidden;
+  border: 1px solid #ffffff22;
+  box-shadow: inset 0 0 0 6px #ffffff0d;
+  font: 600 34px var(--display);
+  letter-spacing: -.05em;
+}
+.advent-door:nth-child(3n+1) .door-front { background: linear-gradient(140deg, #c8303f, #7d0f1d); }
+.advent-door:nth-child(3n+2) .door-front { background: linear-gradient(140deg, #1f6b47, #0d2a1f); }
+.advent-door:nth-child(3n+3) .door-front { background: linear-gradient(140deg, #c79a2e, #6e4f12); }
+.advent-door .door-front::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--xmas-gold);
+}
+.advent-door:hover .door-front { transform: rotateY(-14deg); }
+.advent-door.is-open .door-front { transform: rotateY(-105deg); }
+.advent-door:focus-visible { outline: 2px solid var(--xmas-gold); outline-offset: 3px; border-radius: 10px; }
+
+.cocoa-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px;
+  border-radius: 18px;
+  background: linear-gradient(150deg, #2a1712, #160d0b 70%);
+  border: 1px solid #4a2b20;
+  box-shadow: 0 30px 80px #00000066;
+}
+.cocoa-tag { font: 10px var(--mono); letter-spacing: .12em; color: var(--xmas-gold); }
+.cocoa-copy h3 { font: 500 clamp(36px, 4vw, 52px)/1 var(--display); letter-spacing: -.06em; margin: 14px 0 16px; }
+.cocoa-copy p { color: #d8c8bd; font-size: 14px; line-height: 1.65; margin: 0 0 22px; }
+.cocoa-copy p b { color: #fff; }
+.cocoa-facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cocoa-facts li { padding: 12px; border: 1px solid #4a2b20; border-radius: 10px; display: flex; flex-direction: column; gap: 6px; }
+.cocoa-facts span { font: 8px var(--mono); letter-spacing: .1em; color: #b79f90; }
+.cocoa-facts b { font: 600 18px var(--display); }
+.cocoa-controls { display: flex; flex-direction: column; gap: 18px; }
+.cocoa-controls label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font: 11px var(--mono); letter-spacing: .06em; color: #e9dcd2; }
+.cocoa-controls output { color: var(--xmas-gold); font-size: 14px; }
+.cocoa-controls input[type="range"] { width: 100%; accent-color: var(--xmas-red); }
+.cocoa-toggle { justify-content: flex-start !important; align-items: center; cursor: pointer; }
+.cocoa-toggle input { accent-color: var(--xmas-red); width: 18px; height: 18px; }
+.cocoa-controls .button { align-self: flex-start; border: 0; cursor: pointer; }
+.cocoa-result {
+  min-height: 112px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #00000040;
+  border: 1px dashed #5b3a2c;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #e9dcd2;
+}
+.cocoa-result .cocoa-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+.cocoa-result .cocoa-stats span { display: flex; flex-direction: column; font: 8px var(--mono); letter-spacing: .08em; color: #b79f90; }
+.cocoa-result .cocoa-stats b { font: 600 18px var(--display); color: #fff; letter-spacing: -.03em; }
+.cocoa-result .is-profit { color: #7ff0a8 !important; }
+.cocoa-result .is-loss { color: #ff8a8f !important; }
+
+#xmas-rewrap { background: none; border: 0; padding: 0; color: inherit; font: inherit; letter-spacing: inherit; cursor: pointer; }
+#xmas-rewrap:hover { color: var(--xmas-gold); }
+
+/* ---------- Peel corner (shown while the old page is still on) ---------- */
+.peel-corner {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 132px;
+  height: 132px;
+  z-index: 9000;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: grab;
+  touch-action: none;
+}
+.peel-corner:active { cursor: grabbing; }
+.peel-corner .peel-under {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(100% 18%, 100% 100%, 18% 100%);
+  background:
+    repeating-linear-gradient(45deg, #ff4f5e 0 12px, #fff 12px 16px, #1f6b47 16px 28px, #fff 28px 32px);
+  transition: clip-path .35s ease;
+}
+.peel-corner .peel-flap {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(18% 100%, 100% 18%, 18% 18%);
+  background: linear-gradient(135deg, #b8b3a3 30%, #fffef4 52%, #e4dfcf 59%, #c9c3b0);
+  filter: drop-shadow(-4px -4px 8px #00000066);
+  transform-origin: center;
+  transition: clip-path .35s ease;
+  animation: peel-wiggle 2.6s ease-in-out infinite;
+}
+.peel-corner:hover .peel-under,
+.peel-corner:focus-visible .peel-under { clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.peel-corner:hover .peel-flap,
+.peel-corner:focus-visible .peel-flap { clip-path: polygon(0 100%, 100% 0, 0 0); animation: none; }
+@keyframes peel-wiggle { 0%, 70%, 100% { transform: none; } 80% { transform: translate(-3px, -3px); } 90% { transform: translate(1px, 1px); } }
+.peel-hint {
+  position: fixed;
+  right: 28px;
+  bottom: 142px;
+  z-index: 9000;
+  max-width: 210px;
+  padding: 12px 14px;
+  border-radius: 12px 12px 2px 12px;
+  background: #ff4f5e;
+  color: #fff;
+  font: 600 13px/1.35 var(--sans);
+  box-shadow: 0 12px 30px #0008;
+  pointer-events: none;
+  animation: peel-bob 2.4s ease-in-out infinite;
+}
+.peel-hint b { font-family: var(--mono); font-weight: 400; white-space: nowrap; }
+/* Locked until December 1: a padlock on the wrapping, and a tug instead of a peel */
+.peel-corner.is-locked { cursor: not-allowed; }
+.peel-corner.is-locked .peel-under::after {
+  content: "🔒";
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  font-size: 22px;
+  filter: drop-shadow(0 2px 3px #0008);
+}
+.peel-corner.is-locked:hover .peel-under,
+.peel-corner.is-locked:focus-visible .peel-under { clip-path: polygon(100% 8%, 100% 100%, 8% 100%); }
+.peel-corner.is-locked:hover .peel-flap,
+.peel-corner.is-locked:focus-visible .peel-flap { clip-path: polygon(8% 100%, 100% 8%, 8% 8%); }
+.peel-corner.is-tugged { animation: peel-locked-tug .45s ease; }
+@keyframes peel-locked-tug { 20% { transform: translate(-6px, -6px); } 45% { transform: translate(2px, 2px); } 65% { transform: translate(-3px, -3px); } 100% { transform: none; } }
+.peel-hint small { display: block; font: 9px var(--mono); letter-spacing: .12em; opacity: .85; margin-bottom: 4px; }
+@keyframes peel-bob { 50% { transform: translateY(-6px); } }
+
+/* Full-screen peel animation layers */
+.peel-sheet,
+.peel-shadow,
+.peel-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+.peel-shadow { z-index: 9001; }
+.peel-sheet { z-index: 9002; border: 0; background: #080b10; }
+.peel-back { z-index: 9003; filter: drop-shadow(-10px -10px 18px #0007); }
+.peel-back > div { position: absolute; inset: 0; }
+
+@media (max-width: 900px) {
+  .xmas-heading { flex-direction: column; align-items: start; }
+  .xmas-side { text-align: left; }
+  .advent-grid { grid-template-columns: repeat(4, 1fr); }
+  .cocoa-card { grid-template-columns: 1fr; padding: 26px; gap: 26px; }
+}
+@media (max-width: 560px) {
+  .xmas-section { padding: 64px 0 70px; }
+  .advent-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .advent-door .door-back { font-size: 10.5px; padding: 10px; }
+  .cocoa-result .cocoa-stats { grid-template-columns: repeat(2, 1fr); }
+  .peel-corner { width: 104px; height: 104px; }
+  .peel-hint { bottom: 112px; right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xmas-lights i, .peel-corner .peel-flap, .peel-hint { animation: none; }
+  .advent-door .door-front { transition: none; }
+}

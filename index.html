@@ -8,7 +8,10 @@
   <meta name="description" content="Sidequest is a next-generation founder game. Build real-world business skills through six high-energy missions.">
   <title>Sidequest — Build what’s next.</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="christmas.css">
+  <script>try { if (sessionStorage.getItem('sidequest-xmas-unwrapped') && (Date.now() >= new Date(2026, 11, 1).getTime() || location.search.includes('preview-xmas'))) document.documentElement.classList.add('xmas'); } catch { /* Show the wrapped page first. */ }</script>
   <script src="app.js" defer></script>
+  <script src="christmas.js" defer></script>
   <style>
     /* SideQuest hero credit slider: self-contained */
     #sq-hero-credits {
@@ -131,8 +134,10 @@
   </section>
 
   <div class="topline">
-    <span>◉ SIDEQUEST / FOUNDER MODE <b>V1.0</b></span>
-    <span>THE FUTURE BELONGS TO THE CURIOUS <span class="topline-star">✳</span></span>
+    <span class="xmas-hide">◉ SIDEQUEST / FOUNDER MODE <b>V1.0</b></span>
+    <span class="xmas-hide">THE FUTURE BELONGS TO THE CURIOUS <span class="topline-star">✳</span></span>
+    <span class="xmas-only">❄ SIDEQUEST / HOLIDAY EDITION <b>V1.25</b></span>
+    <span class="xmas-only">12 DAYS OF FOUNDER QUESTS ARE LIVE <span class="topline-star">✦</span></span>
   </div>
 
   <header class="site-header">
@@ -141,6 +146,7 @@
       <span>SIDEQUEST<small>YOUR NEXT BIG IDEA STARTS HERE</small></span>
     </a>
     <nav class="main-nav" aria-label="Main navigation">
+      <a class="xmas-only" href="#holiday">Holiday quests</a>
       <a href="#missions">Missions</a>
       <a href="#toolkit">Founder tools</a>
       <a href="#how">How to play</a>
@@ -212,11 +218,15 @@
           </div>
         </div>
 
-        <p class="eyebrow"><span class="eyebrow-dot"></span> A REAL-WORLD BUSINESS GAME FOR BIG-THINKING TEENS</p>
-        <h1>Think big.<br><em>Build boldly.</em></h1>
-        <p class="hero-intro">Your idea is the starting line. Run the missions, make the calls, learn the moves—and build the confidence to turn “what if?” into “what’s next?”</p>
+        <p class="eyebrow xmas-hide"><span class="eyebrow-dot"></span> A REAL-WORLD BUSINESS GAME FOR BIG-THINKING TEENS</p>
+        <h1 class="xmas-hide">Think big.<br><em>Build boldly.</em></h1>
+        <p class="eyebrow xmas-only"><span class="eyebrow-dot"></span> THE SIDEQUEST HOLIDAY EDITION IS HERE</p>
+        <h1 class="xmas-only">Dream big.<br><em>Gift boldly.</em></h1>
+        <p class="hero-intro xmas-only">Twelve days of bite-size founder quests, a winter pop-up stall to run, and a whole season of ideas worth wrapping up. Same missions—now with extra sparkle.</p>
+        <p class="hero-intro xmas-hide">Your idea is the starting line. Run the missions, make the calls, learn the moves—and build the confidence to turn “what if?” into “what’s next?”</p>
         <div class="hero-actions">
-          <a class="button button-lime" href="#play">Enter founder mode <span aria-hidden="true">↗</span></a>
+          <a class="button button-lime xmas-hide" href="#play">Enter founder mode <span aria-hidden="true">↗</span></a>
+          <a class="button button-lime xmas-only" href="#holiday">Open the holiday quests <span aria-hidden="true">🎁</span></a>
           <span class="hero-note"><span class="spark-mini">✦</span> 6 missions · 2 founder tools · 0 experience required</span>
         </div>
         <div class="hero-footnote">
@@ -261,11 +271,18 @@
           <circle cx="133" cy="321" r="5" fill="#e2ff8c"/>
           <circle cx="480" cy="183" r="4" fill="#a2fffb"/>
           <circle cx="377" cy="85" r="2.5" fill="#fff"/>
+          <g class="xmas-only xmas-ornament-cap">
+            <rect x="280" y="132" width="40" height="22" rx="4" fill="#e9c46a" stroke="#fff3c4" stroke-width="1.2"/>
+            <path d="M284 138h32M284 146h32" stroke="#a9812c" stroke-width="1.4"/>
+            <path d="M300 132c-14-2-16-26 0-26s14 24 0 26" fill="none" stroke="#e9c46a" stroke-width="3"/>
+            <path d="M300 106V0" stroke="#fff3c477" stroke-width="1" stroke-dasharray="3 5"/>
+          </g>
           <path d="M86 375c58-43 91-48 150-24M421 355c39-35 60-48 107-54" fill="none" stroke="#d7fcac77" stroke-dasharray="2 7"/>
         </svg>
         <div class="telemetry telemetry-a"><span>MISSION</span><b>IDEA → IMPACT</b><i>TRAJECTORY LOCKED</i></div>
         <div class="telemetry telemetry-b"><span>SKILLS ONLINE</span><b>06 <small>/ 06</small></b><i>BUILD · TEST · LEARN</i></div>
-        <div class="visual-caption"><span>01 / YOUR IDEA, IN ORBIT</span><span>SIMULATION MODE <i>●</i></span></div>
+        <div class="visual-caption xmas-only"><span>01 / YOUR IDEA, ON THE TREE</span><span>FESTIVE MODE <i>●</i></span></div>
+        <div class="visual-caption xmas-hide"><span>01 / YOUR IDEA, IN ORBIT</span><span>SIMULATION MODE <i>●</i></span></div>
       </div>
 
       <div class="hero-index"><span>01</span><i></i><span>06</span></div>
@@ -278,6 +295,49 @@
       <div class="stat"><strong id="mission-count">0</strong><span>MISSIONS DONE</span></div>
       <div class="stat stat-level"><strong id="level-name">Curious</strong><span>YOUR CURRENT LEVEL</span></div>
       <div class="stat"><strong id="badge-count">0 / 6</strong><span>BADGES UNLOCKED</span></div>
+    </section>
+
+    <!-- HOLIDAY EDITION -->
+    <section class="xmas-section xmas-only" id="holiday" aria-labelledby="holiday-title">
+      <div class="wrap">
+        <div class="xmas-heading">
+          <div>
+            <p class="eyebrow">THE HOLIDAY EDITION · DEC 1 → DEC 12</p>
+            <h2 id="holiday-title">Twelve days of<br><em>founder quests.</em></h2>
+          </div>
+          <p class="xmas-side">One tiny real-world challenge behind every door.<br>Open them in any order—no XP lost, ever.</p>
+        </div>
+
+        <div class="advent-meta">
+          <span><b id="advent-count">0</b> / 12 DOORS OPENED</span>
+          <span class="advent-track"><i id="advent-progress"></i></span>
+        </div>
+        <div class="advent-grid" id="advent-grid" aria-label="Advent calendar of founder challenges"></div>
+
+        <article class="cocoa-card" id="cocoa">
+          <div class="cocoa-copy">
+            <span class="cocoa-tag">MISSION 07 · LIMITED SEASON</span>
+            <h3>The winter<br>cocoa stall.</h3>
+            <p>Your school's winter fair is on Saturday. The stall fee is <b>$15</b> and each cup of cocoa costs <b>$0.80</b> to make. Set your price, pick how many cups to prep, then open the stall.</p>
+            <ul class="cocoa-facts">
+              <li><span>STALL FEE</span><b>$15</b></li>
+              <li><span>COST / CUP</span><b>$0.80</b></li>
+              <li><span>MARSHMALLOWS</span><b>+$0.40</b></li>
+            </ul>
+          </div>
+          <form class="cocoa-controls" id="cocoa-form">
+            <label>Price per cup <output id="cocoa-price-out">$2.50</output>
+              <input type="range" id="cocoa-price" min="1" max="6" step="0.25" value="2.5">
+            </label>
+            <label>Cups to prep <output id="cocoa-batch-out">60</output>
+              <input type="range" id="cocoa-batch" min="20" max="140" step="10" value="60">
+            </label>
+            <label class="cocoa-toggle"><input type="checkbox" id="cocoa-extra"> <span>Add marshmallows (people love them)</span></label>
+            <button class="button button-lime" type="submit">Open the stall <span aria-hidden="true">☕</span></button>
+            <div class="cocoa-result" id="cocoa-result" aria-live="polite">Set your numbers and open the stall to see how the day goes.</div>
+          </form>
+        </article>
+      </div>
     </section>
 
     <!-- FOUNDER PROGRESS -->
@@ -572,7 +632,7 @@
         <span class="brand-mark">S<span>✳</span></span>
         <span>SIDEQUEST<small>YOUR NEXT BIG IDEA STARTS HERE</small></span>
       </a>
-      <p>Made in Sri Lanka 🇱🇰<br>Sponsored by Technobotics LK</p>
+      <p>Made in Sri Lanka 🇱🇰<br>Sponsored by Technobotics LK<span class="xmas-only"><br>Happy holidays from the Sidequest crew 🎄</span></p>
       <a class="button button-lime" href="#play">Play a round <span>↗</span></a>
     </div>
     <div class="wrap footer-bottom">
@@ -582,6 +642,7 @@
         <a href="legal/terms.html">Terms &amp; Conditions</a>
         <a href="legal/privacy.html">Privacy Policy</a>
         <button id="privacy-settings" type="button">Privacy choices</button>
+        <button class="xmas-only" id="xmas-rewrap" type="button">Re-wrap the page</button>
       </nav>
     </div>
   </footer>

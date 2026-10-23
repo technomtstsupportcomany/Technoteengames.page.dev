@@ -10,3 +10,43 @@
 +@media(prefers-reduced-motion:reduce){.site-home .hero-copy,.site-home .hero-art{animation:none}.hero-pulse,.planet-halo,.planet-svg{animation:none}}
 .privacy-locked{overflow:hidden}.privacy-choice-overlay{position:fixed;z-index:9999;inset:0;display:grid;place-items:center;padding:20px;background:#03070bd9;backdrop-filter:blur(14px)}.privacy-choice-overlay[hidden]{display:none}.privacy-choice-card{width:min(520px,100%);padding:36px;background:linear-gradient(145deg,#121b22,#0b1117);border:1px solid #3b4b4c;box-shadow:0 35px 120px #000b;position:relative;overflow:hidden;animation:rise-in .35s ease-out both}.privacy-choice-card:after{content:'';position:absolute;right:-80px;top:-115px;width:220px;height:220px;border-radius:50%;background:#d5ff5e16;filter:blur(20px);pointer-events:none}.privacy-choice-mark{width:42px;height:42px;display:grid;place-items:center;background:#d5ff5e;color:#11170f;border-radius:50%;font-size:21px;box-shadow:0 0 34px #d5ff5e44;margin-bottom:28px}.privacy-choice-card .eyebrow{color:#a6b5b1;margin-bottom:12px}.privacy-choice-card h2{position:relative;z-index:1;font:600 40px/.98 var(--display);letter-spacing:-.07em;color:#f4f7f1;margin:0}.privacy-choice-card h2 em{font-style:normal;color:#d5ff5e}.privacy-choice-card>p:not(.eyebrow){font-size:12px;line-height:1.75;color:#a8b4b5;max-width:420px;margin:17px 0 22px}.privacy-choice-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.privacy-choice-actions .button{min-height:47px;padding:0 12px;gap:8px;font-size:9px;position:relative;z-index:2}.privacy-choice-link{display:inline-block;margin-top:16px;color:#b6c5be;font:8px var(--mono);letter-spacing:.04em}.privacy-choice-link:hover{color:#d5ff5e}.site-home .footer-bottom nav{align-items:center}.site-home .footer-bottom nav button{padding:0;border:0;background:transparent;color:inherit;cursor:pointer;font:inherit;letter-spacing:inherit}.site-home .footer-bottom nav button:hover{color:#d5ff5e}.site-home .play-foot{align-items:center}.site-home .credits-title>p:last-of-type{max-width:285px}.site-home .credit-row small{font-size:8px}.site-home .credits-note{max-width:700px}.site-home .hero h1{font-size:clamp(56px,6.4vw,82px)}
 +@media(max-width:680px){.privacy-choice-card{padding:25px 19px}.privacy-choice-card h2{font-size:35px}.privacy-choice-actions{grid-template-columns:1fr}.privacy-choice-actions .button{min-height:45px}.site-home .hero h1{font-size:clamp(46px,12.4vw,62px)}.site-home .hero-art{height:335px}.site-home .footer-bottom nav{flex-wrap:wrap;row-gap:10px}.site-home .footer-bottom nav button{font-size:7px}}
+
+/* Birthday gate, editions & locked content */
+.birthday-form{display:grid;gap:9px;position:relative;z-index:2}
+.birthday-form label{font:8px var(--mono);letter-spacing:.1em;color:#a6b5b1}
+.birthday-form input{min-height:47px;padding:0 14px;background:#0b1117;border:1px solid #3b4b4c;color:#f4f7f1;font:500 15px var(--sans);color-scheme:dark}
+.birthday-form input:focus{outline:2px solid #d5ff5e;outline-offset:1px}
+.birthday-error{margin:0;color:#ffb3a3;font-size:11px;line-height:1.5}
+.birthday-error[hidden]{display:none}
+.safeguard-note{position:relative;z-index:2;margin-top:16px;padding:12px 14px;border:1px solid #d5ff5e55;background:#d5ff5e10;color:#b6c5be;font-size:11px;line-height:1.6}
+.safeguard-note b{display:block;color:#d5ff5e;font:9px var(--mono);letter-spacing:.1em;margin-bottom:3px}
+.edition-bar{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:10px max(calc((100% - 1190px)/2),36px);background:var(--green);color:var(--ink);font:9px var(--mono);letter-spacing:.07em}
+.edition-bar[hidden]{display:none}
+.edition-name{font-weight:700}
+.edition-actions{margin-left:auto;display:flex;gap:8px}
+.edition-actions button{background:transparent;border:1px solid #1c211d55;padding:5px 9px;font:9px var(--mono);letter-spacing:.05em;cursor:pointer;color:var(--ink)}
+.edition-actions button:hover{background:var(--ink);color:var(--green)}
+.edition-actions button[hidden]{display:none}
+.edition-bar.is-birthday .edition-bday{font-weight:700;animation:bday-pop 1.2s ease-in-out infinite alternate}
+@keyframes bday-pop{to{transform:scale(1.06)}}
+.difficulty-teen i{background:var(--coral)}
+.mission-card{position:relative}
+.mission-card.is-locked .mission-illustration{filter:grayscale(1) blur(2px);opacity:.55}
+.mission-card.is-locked .card-content h3,.mission-card.is-locked .card-content p{opacity:.5}
+.mission-card.is-locked .start-mission{display:none}
+.lock-note{display:flex;gap:8px;align-items:flex-start;padding:9px 10px;background:#f0efe7;border-left:3px solid var(--ink);font:9px/1.5 var(--mono);letter-spacing:.03em;color:#51544d}
+.lock-note b{font-size:13px;line-height:1}
+.mission-lock-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--green);display:grid;place-items:center;font-size:20px;z-index:2;pointer-events:none}
+.answer-option.is-locked{opacity:.5;cursor:not-allowed}
+.online-art{background:#dcebf1}
+.online-window{position:absolute;left:50%;top:22px;transform:translateX(-50%) rotate(-3deg);width:140px;height:110px;background:#fffdf6;padding:12px;box-shadow:0 6px 17px #2f454b1f}
+.online-window small{font:7px var(--mono);color:#8d9181;letter-spacing:.08em}
+.online-window b{display:block;color:#e0a43a;font-size:16px;margin:8px 0}
+.online-window i{display:block;height:3px;width:85%;background:#e7e7db;margin:7px 0}
+.online-shield{position:absolute;right:22%;bottom:16px;font-size:30px}
+.profit-art{background:#e9f3d4}
+.profit-stack{position:absolute;left:50%;top:40px;transform:translateX(-50%);background:var(--ink);color:#f5f3ec;padding:16px 18px;text-align:center}
+.profit-stack small{display:block;font:7px var(--mono);letter-spacing:.1em;color:#b5b8ab}
+.profit-stack strong{display:block;font:600 24px var(--display);letter-spacing:-.04em;color:var(--green);margin-top:6px}
+.profit-arrow{position:absolute;right:18%;top:18px;font-size:28px;color:#7aa23c}
+@media(max-width:680px){.edition-bar{gap:8px 14px;padding:10px 18px}.edition-actions{margin-left:0;width:100%}}

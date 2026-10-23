@@ -130,6 +130,22 @@
     </div>
   </section>
 
+  <section class="privacy-choice-overlay birthday-overlay" id="birthday-gate" role="dialog" aria-modal="true" aria-labelledby="birthday-title" aria-describedby="birthday-copy" hidden>
+    <div class="privacy-choice-card">
+      <div class="privacy-choice-mark">🎂</div>
+      <p class="eyebrow">ONE QUICK QUESTION</p>
+      <h2 id="birthday-title">When's your<br><em>birthday?</em></h2>
+      <p id="birthday-copy">Sidequest has two editions: <b>Junior (ages 9–13)</b> and <b>Teen (ages 13–16)</b>. Your birthday picks the right one for you and lets us count down to your big day.</p>
+      <form class="birthday-form" id="birthday-form" novalidate>
+        <label for="birthday-input">YOUR BIRTHDAY</label>
+        <input id="birthday-input" type="date" required>
+        <p class="birthday-error" id="birthday-error" role="alert" hidden></p>
+        <button class="button button-lime" type="submit">Start my adventure <span>↗</span></button>
+      </form>
+      <div class="safeguard-note"><b>🔒 ALL DATA SAFEGUARDED</b> Your birthday stays on this device only. It is never uploaded, shared, or sold, and you can change it any time.</div>
+    </div>
+  </section>
+
   <div class="topline">
     <span>◉ SIDEQUEST / FOUNDER MODE <b>V1.0</b></span>
     <span>THE FUTURE BELONGS TO THE CURIOUS <span class="topline-star">✳</span></span>
@@ -148,6 +164,16 @@
     </nav>
     <a class="button button-dark header-cta" href="#play">Play a round <span aria-hidden="true">↗</span></a>
   </header>
+
+  <div class="edition-bar" id="edition-bar" hidden>
+    <span class="edition-name" id="edition-name">JUNIOR EDITION · AGES 9–13</span>
+    <span class="edition-bday" id="edition-bday">🎂 — days until your birthday</span>
+    <span class="edition-safe">🔒 ALL DATA SAFEGUARDED</span>
+    <span class="edition-actions">
+      <button type="button" id="edition-switch" hidden>Switch edition</button>
+      <button type="button" id="change-birthday">Change birthday</button>
+    </span>
+  </div>
 
   <main id="home">
 
@@ -212,12 +238,12 @@
           </div>
         </div>
 
-        <p class="eyebrow"><span class="eyebrow-dot"></span> A REAL-WORLD BUSINESS GAME FOR BIG-THINKING TEENS</p>
+        <p class="eyebrow"><span class="eyebrow-dot"></span> <span id="edition-eyebrow">A REAL-WORLD BUSINESS GAME FOR BIG-THINKING TEENS</span></p>
         <h1>Think big.<br><em>Build boldly.</em></h1>
         <p class="hero-intro">Your idea is the starting line. Run the missions, make the calls, learn the moves—and build the confidence to turn “what if?” into “what’s next?”</p>
         <div class="hero-actions">
           <a class="button button-lime" href="#play">Enter founder mode <span aria-hidden="true">↗</span></a>
-          <span class="hero-note"><span class="spark-mini">✦</span> 6 missions · 2 founder tools · 0 experience required</span>
+          <span class="hero-note"><span class="spark-mini">✦</span> <span id="mission-total-note">8</span> missions · 2 founder tools · 0 experience required</span>
         </div>
         <div class="hero-footnote">
           <span class="hero-pulse"></span>
@@ -305,6 +331,8 @@
             <span class="badge-chip locked" data-badge="budget">◒ Budget</span>
             <span class="badge-chip locked" data-badge="branding">✎ Branding</span>
             <span class="badge-chip locked" data-badge="pitch">↗ Pitching</span>
+            <span class="badge-chip locked" data-badge="online">⌁ Online</span>
+            <span class="badge-chip locked" data-badge="profit">▲ Profit</span>
           </div>
         </div>
       </div>
@@ -404,6 +432,34 @@
               <h3>Say it in 20 seconds</h3>
               <p>Make your idea clear, memorable, and easy to understand.</p>
               <button class="text-button start-mission" data-mission="pitch">Play this mission <span>↗</span></button>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <div class="card-topline"><span class="mission-number">MISSION 007</span><span class="difficulty difficulty-teen"><i></i> TEEN EXCLUSIVE</span></div>
+            <div class="mission-illustration online-art">
+              <div class="online-window"><small>MY SHOP</small><b>★★★★★</b><i></i><i></i></div>
+              <span class="online-shield">🔒</span>
+            </div>
+            <div class="card-content">
+              <div class="skill-tag skill-blue"><span>✳</span> DIGITAL SMARTS</div>
+              <h3>Sell online, stay safe</h3>
+              <p>Take your shop online without giving away what should stay private.</p>
+              <button class="text-button start-mission" data-mission="online">Play this mission <span>↗</span></button>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <div class="card-topline"><span class="mission-number">MISSION 008</span><span class="difficulty difficulty-teen"><i></i> TEEN EXCLUSIVE</span></div>
+            <div class="mission-illustration profit-art">
+              <div class="profit-stack"><small>REVENUE − COSTS</small><strong>= PROFIT</strong></div>
+              <span class="profit-arrow">▲</span>
+            </div>
+            <div class="card-content">
+              <div class="skill-tag"><span>✳</span> PROFIT CHECK</div>
+              <h3>Sales aren't profit</h3>
+              <p>You sold out. Nice! But how much did you actually make?</p>
+              <button class="text-button start-mission" data-mission="profit">Play this mission <span>↗</span></button>
             </div>
           </article>
         </div>
